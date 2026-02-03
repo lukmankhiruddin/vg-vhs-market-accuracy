@@ -17,47 +17,47 @@ export function TopCriticalIssues() {
   const criticalIssues: CriticalIssue[] = [
     {
       rank: 1,
-      market: "ARABIC",
-      errorCategory: "NON_VIOLATING",
-      errorCount: 36,
+      market: "NON_VIOLATING",
+      errorCategory: "False Positive Classification",
+      errorCount: 202,
       impact: "Critical",
-      recommendation: "Review classification guidelines with Arabic team. High false positive rate indicates potential training gaps or guideline misinterpretation.",
+      recommendation: "Implement global refresher training on NON_VIOLATING content identification. Update policy guidelines with clearer examples. Highest impact across ARABIC (36), UKRAINIAN (34), and TURKISH (24) markets.",
       icon: <AlertTriangle className="h-5 w-5" />
     },
     {
       rank: 2,
-      market: "UKRAINIAN",
-      errorCategory: "NON_VIOLATING",
-      errorCount: 34,
-      impact: "Critical",
-      recommendation: "Conduct refresher training on NON_VIOLATING content identification. Consider adding more Ukrainian-specific examples to training materials.",
-      icon: <FileText className="h-5 w-5" />
+      market: "SEXUAL_SOLICITATION",
+      errorCategory: "Adult Content Policy",
+      errorCount: 41,
+      impact: "High",
+      recommendation: "Clarify distinction between sexual solicitation and legitimate dating/relationship content. Focus training on UKRAINIAN (7), ARABIC (5), and TURKISH (5) markets where errors are concentrated.",
+      icon: <Users className="h-5 w-5" />
     },
     {
       rank: 3,
-      market: "TURKISH",
-      errorCategory: "NON_VIOLATING",
+      market: "DOI_REFERENCES_TERRORISM",
+      errorCategory: "Terrorism & Extremism",
       errorCount: 24,
       impact: "High",
-      recommendation: "Audit recent Turkish content samples. Pattern suggests over-classification of benign content as violations.",
+      recommendation: "Enhance training on distinguishing terrorism references from news reporting or educational content. Review escalation protocols for sensitive geopolitical contexts.",
       icon: <Target className="h-5 w-5" />
     },
     {
       rank: 4,
-      market: "INDONESIAN",
-      errorCategory: "NON_VIOLATING",
-      errorCount: 22,
+      market: "DOI_SUPPORT_TERRORISM",
+      errorCategory: "Dangerous Organizations",
+      errorCount: 23,
       impact: "High",
-      recommendation: "Increase quality check frequency for Indonesian market. Implement peer review for borderline cases.",
-      icon: <Users className="h-5 w-5" />
+      recommendation: "Standardize interpretation of 'support' vs 'mention' across markets. Create decision tree for borderline cases involving political vs extremist content.",
+      icon: <FileText className="h-5 w-5" />
     },
     {
       rank: 5,
-      market: "GERMAN",
-      errorCategory: "NON_VIOLATING",
-      errorCount: 18,
+      market: "PROSTITUTION",
+      errorCategory: "Commercial Sex Policy",
+      errorCount: 19,
       impact: "Medium",
-      recommendation: "Schedule calibration session with German reviewers. Focus on edge cases and cultural context considerations.",
+      recommendation: "Update policy examples to reflect regional legal variations. Provide cultural context training for markets where prostitution legality varies (GERMAN, UKRAINIAN, INDONESIAN).",
       icon: <TrendingUp className="h-5 w-5" />
     }
   ];
@@ -98,7 +98,7 @@ export function TopCriticalIssues() {
           <div>
             <h3 className="font-semibold text-sm mb-1">Priority Action Required</h3>
             <p className="text-sm text-muted-foreground">
-              These 5 issues represent 134 errors (19.3% of total). Addressing them will have the highest impact on overall accuracy.
+              These 5 policy areas represent 309 errors (44.5% of total). Addressing them will have the highest impact on overall accuracy.
             </p>
           </div>
         </div>
