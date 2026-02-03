@@ -89,7 +89,7 @@ export function TopCriticalIssues() {
   };
 
   return (
-    <div className="space-y-4">
+    <div>
       <div className="bg-muted/50 rounded-lg p-4 mb-6">
         <div className="flex items-start gap-3">
           <div className="p-2 rounded-lg bg-red-100 dark:bg-red-950/30">
@@ -104,67 +104,49 @@ export function TopCriticalIssues() {
         </div>
       </div>
 
-      {criticalIssues.map((issue, index) => (
-        <motion.div
-          key={issue.rank}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: index * 0.1 }}
-        >
-          <Card className={`border-l-4 ${getImpactBorderColor(issue.impact)} hover:shadow-lg transition-shadow`}>
-            <CardContent className="p-5">
-              <div className="flex items-start gap-4">
-                {/* Rank Badge */}
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="text-lg font-bold text-primary">#{issue.rank}</span>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+        {criticalIssues.map((issue, index) => (
+          <motion.div
+            key={issue.rank}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.08 }}
+          >
+            <Card className={`border-t-4 ${getImpactBorderColor(issue.impact).replace('border-l-', 'border-t-')} hover:shadow-lg transition-all h-full`}>
+              <CardContent className="p-4">
+                {/* Header */}
+                <div className="flex items-start justify-between mb-3">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-sm font-bold text-primary">#{issue.rank}</span>
+                  </div>
+                  <Badge className={`${getImpactColor(issue.impact)} text-xs`}>
+                    {issue.impact}
+                  </Badge>
+                </div>
+
+                {/* Market & Category */}
+                <div className="mb-3">
+                  <h4 className="font-bold text-base mb-1">{issue.market}</h4>
+                  <Badge variant="outline" className="text-xs mb-2">
+                    {issue.errorCategory.replace(/_/g, ' ')}
+                  </Badge>
+                  <div className="font-mono font-bold text-red-600 dark:text-red-400 text-xl">
+                    {issue.errorCount} errors
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <h4 className="font-semibold text-base">{issue.market}</h4>
-                        <Badge variant="outline" className="text-xs">
-                          {issue.errorCategory.replace(/_/g, ' ')}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <span className="font-mono font-bold text-red-600 dark:text-red-400 text-lg">
-                          {issue.errorCount} errors
-                        </span>
-                        <span>•</span>
-                        <Badge className={`${getImpactColor(issue.impact)} text-xs`}>
-                          {issue.impact} Impact
-                        </Badge>
-                      </div>
-                    </div>
-
-                    {/* Icon */}
-                    <div className="p-2 rounded-lg bg-muted/50 text-muted-foreground flex-shrink-0">
-                      {issue.icon}
-                    </div>
-                  </div>
-
-                  {/* Recommendation */}
-                  <div className="bg-muted/30 rounded-md p-3 border-l-2 border-primary/50">
-                    <div className="flex items-start gap-2">
-                      <span className="text-xs font-semibold text-primary uppercase tracking-wide flex-shrink-0 mt-0.5">
-                        Action:
-                      </span>
-                      <p className="text-sm text-foreground">
-                        {issue.recommendation}
-                      </p>
-                    </div>
-                  </div>
+                {/* Recommendation */}
+                <div className="bg-muted/40 rounded p-2.5 text-xs leading-relaxed">
+                  <div className="font-semibold text-primary mb-1">ACTION:</div>
+                  <p className="text-foreground/90">
+                    {issue.recommendation}
+                  </p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-      ))}
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
 
       {/* Summary Footer */}
       <div className="mt-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
