@@ -379,8 +379,7 @@ export default function Home() {
                 errors: "202 errors (29.1% of total)",
                 actions: [
                   "Deploy targeted training for ARABIC (36 errors), TURKISH (31), INDONESIAN (27) on NON_VIOLATING vs FRAUD_AND_DECEPTION distinction",
-                  "Share top 10 misclassified cases in weekly team briefings to clarify edge cases and improve reviewer judgment",
-                  "Implement bi-weekly calibration sessions for markets with >15 NON_VIOLATING errors"
+                  "Share top 10 misclassified cases in weekly team briefings and implement bi-weekly calibration sessions for high-error markets"
                 ]
               },
               {
@@ -390,8 +389,7 @@ export default function Home() {
                 errors: "69 critical errors (EXTREMELY_HIGH/VERY_HIGH)",
                 actions: [
                   "Mandate 100% QA review for DANGEROUS_INDIVIDUALS_AND_ORGS, ADULT_SEXUAL_EXPLOITATION content in PAKISTAN_OTHERS, ARABIC, MAGHREB",
-                  "Flag high-severity errors for team lead review in weekly quality meetings to identify patterns and prevent recurrence",
-                  "Deploy specialized training: Terrorism content (PAKISTAN_OTHERS), Sexual exploitation (ARABIC)"
+                  "Deploy specialized training on terrorism content (PAKISTAN_OTHERS) and sexual exploitation (ARABIC) with weekly quality reviews"
                 ]
               },
               {
@@ -401,8 +399,7 @@ export default function Home() {
                 errors: "3 markets with insufficient sampling",
                 actions: [
                   "Monitor HUNGARIAN, MALAY, UKRAINIAN accuracy trends closely due to low sample sizes (72, 59, 84 avg/week)",
-                  "Validate accuracy metrics with additional spot checks before making strategic decisions based on these markets",
-                  "Consider combining low-sample markets with similar language/culture for more reliable trend analysis"
+                  "Validate accuracy metrics with additional spot checks before making strategic decisions based on these markets"
                 ]
               }
             ].map((rec, index) => (
