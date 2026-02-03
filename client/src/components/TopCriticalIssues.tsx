@@ -153,7 +153,7 @@ export function TopCriticalIssues() {
         <div className="flex items-center justify-between">
           <div className="text-sm">
             <span className="font-semibold">Next Review:</span>
-            <span className="text-muted-foreground ml-2">Week 1, February 2026</span>
+            <span className="text-muted-foreground ml-2">Week 4, February 2026</span>
           </div>
           <div className="text-sm">
             <span className="font-semibold">Expected Impact:</span>
