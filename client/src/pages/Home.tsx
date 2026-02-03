@@ -12,10 +12,6 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AnimatedMetricCard, AnimatedProgressBar } from "@/components/AnimatedMetricCard";
 import { 
-  MarketAccuracyBarChart, 
-  MarketPerformanceRadar,
-  ErrorDistributionPie,
-  SampleVolumeAccuracyChart,
   WeeklyTrendChart,
   VendorPerformanceChart
 } from "@/components/InteractiveCharts";
@@ -244,15 +240,61 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <h2 className="text-2xl font-bold mb-2">Interactive Performance Dashboard</h2>
+            <h2 className="text-2xl font-bold mb-2">Error Distribution Analysis</h2>
             <p className="text-muted-foreground">
-              Simplified visualizations for quick insights
+              Breakdown of 140 misclassifications by category
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <ErrorDistributionPie />
-            <SampleVolumeAccuracyChart data={marketData} />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {[
+              { name: 'NON_VIOLATING', value: 50, percentage: 35.7, color: 'oklch(0.65 0.24 27)', description: 'False positives on safe content' },
+              { name: 'FRAUD_AND_DECEPTION', value: 14, percentage: 10.0, color: 'oklch(0.75 0.15 60)', description: 'Scam and misleading content' },
+              { name: 'ADULT_SEXUAL_SOLICITATION', value: 13, percentage: 9.3, color: 'oklch(0.55 0.15 30)', description: 'Inappropriate solicitation' },
+              { name: 'PORN', value: 11, percentage: 7.9, color: 'oklch(0.65 0.12 340)', description: 'Adult content misclassification' },
+              { name: 'DANGEROUS_INDIVIDUALS', value: 10, percentage: 7.1, color: 'oklch(0.55 0.12 260)', description: 'Extremist content identification' },
+              { name: 'OTHERS', value: 42, percentage: 30.0, color: 'oklch(0.70 0.08 220)', description: 'Miscellaneous categories' },
+            ].map((category, index) => (
+              <motion.div
+                key={category.name}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
+                <Card className="border-t-4 h-full" style={{ borderTopColor: category.color }}>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                      {category.name.replace(/_/g, ' ')}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="text-5xl font-bold metric-value mb-1" style={{ color: category.color }}>
+                          {category.value}
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          {category.percentage.toFixed(1)}% of total errors
+                        </p>
+                      </div>
+                      <div className="h-2 bg-muted rounded-full overflow-hidden">
+                        <motion.div
+                          className="h-full rounded-full"
+                          style={{ backgroundColor: category.color }}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${category.percentage}%` }}
+                          transition={{ duration: 1, delay: index * 0.1 }}
+                        />
+                      </div>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {category.description}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
