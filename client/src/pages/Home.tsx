@@ -380,8 +380,7 @@ export default function Home() {
                 actions: [
                   "Deploy targeted training for ARABIC (36 errors), TURKISH (31), INDONESIAN (27) on NON_VIOLATING vs FRAUD_AND_DECEPTION distinction",
                   "Update policy guidelines with 15+ real case examples from these 202 misclassifications",
-                  "Implement weekly calibration sessions for markets with >15 NON_VIOLATING errors",
-                  "Timeline: 2 weeks | Owner: Policy & Training Team"
+                  "Implement weekly calibration sessions for markets with >15 NON_VIOLATING errors"
                 ]
               },
               {
@@ -392,8 +391,7 @@ export default function Home() {
                 actions: [
                   "Mandate 100% QA review for DANGEROUS_INDIVIDUALS_AND_ORGS, ADULT_SEXUAL_EXPLOITATION content in PAKISTAN_OTHERS, ARABIC, MAGHREB",
                   "Establish escalation protocol: All high-severity errors trigger immediate case review within 24 hours",
-                  "Deploy specialized training: Terrorism content (PAKISTAN_OTHERS), Sexual exploitation (ARABIC)",
-                  "Timeline: Immediate (Week 1 Feb) | Owner: QA & Operations Lead"
+                  "Deploy specialized training: Terrorism content (PAKISTAN_OTHERS), Sexual exploitation (ARABIC)"
                 ]
               },
               {
@@ -404,8 +402,7 @@ export default function Home() {
                 actions: [
                   "Increase weekly sample targets: HUNGARIAN (72→120), MALAY (59→100), UKRAINIAN (84→120)",
                   "Rationale: Current samples insufficient for 95% confidence interval (need 100+ for statistical reliability)",
-                  "Prioritize HUNGARIAN: 88.15% accuracy may be inflated due to low sample size (n=72)",
-                  "Timeline: 2 weeks | Owner: Sampling & Operations Team"
+                  "Prioritize HUNGARIAN: 88.15% accuracy may be inflated due to low sample size (n=72)"
                 ]
               }
             ].map((rec, index) => (
