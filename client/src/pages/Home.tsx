@@ -279,9 +279,9 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <h2 className="text-2xl font-bold mb-2">Top 5 Policy Issues</h2>
+            <h2 className="text-2xl font-bold mb-2">Top 5 High-Severity Policy Issues</h2>
             <p className="text-muted-foreground">
-              Violation categories with highest error rates requiring policy clarification and training interventions
+              EXTREMELY_HIGH & VERY_HIGH severity violations requiring immediate intervention for user safety and platform integrity
             </p>
           </motion.div>
 

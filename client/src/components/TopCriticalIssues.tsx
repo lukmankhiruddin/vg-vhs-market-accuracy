@@ -17,47 +17,47 @@ export function TopCriticalIssues() {
   const criticalIssues: CriticalIssue[] = [
     {
       rank: 1,
-      market: "NON_VIOLATING",
-      errorCategory: "False Positive Classification",
-      errorCount: 202,
+      market: "DOI_SUPPORT_TERRORISM",
+      errorCategory: "EXTREMELY_HIGH/VERY_HIGH Severity",
+      errorCount: 23,
       impact: "Critical",
-      recommendation: "Implement global refresher training on NON_VIOLATING content identification. Update policy guidelines with clearer examples. Highest impact across ARABIC (36), UKRAINIAN (34), and TURKISH (24) markets.",
+      recommendation: "URGENT: Standardize interpretation of 'support' vs 'mention' across markets. Implement mandatory escalation for terrorism-related content. Highest errors in ARABIC (6), PAKISTAN_OTHERS (4), INDONESIAN (4).",
       icon: <AlertTriangle className="h-5 w-5" />
     },
     {
       rank: 2,
-      market: "SEXUAL_SOLICITATION",
-      errorCategory: "Adult Content Policy",
-      errorCount: 41,
-      impact: "High",
-      recommendation: "Clarify distinction between sexual solicitation and legitimate dating/relationship content. Focus training on UKRAINIAN (7), ARABIC (5), and TURKISH (5) markets where errors are concentrated.",
+      market: "PROSTITUTION",
+      errorCategory: "VERY_HIGH Severity",
+      errorCount: 19,
+      impact: "Critical",
+      recommendation: "Critical misclassification of commercial sexual exploitation. Update policy examples and implement peer review for all prostitution-related cases. Focus on ARABIC (5), INDONESIAN (3), PAKISTAN_OTHERS (3).",
       icon: <Users className="h-5 w-5" />
     },
     {
       rank: 3,
-      market: "DOI_REFERENCES_TERRORISM",
-      errorCategory: "Terrorism & Extremism",
-      errorCount: 24,
-      impact: "High",
-      recommendation: "Enhance training on distinguishing terrorism references from news reporting or educational content. Review escalation protocols for sensitive geopolitical contexts.",
+      market: "CHILD_SEXUALIZATION",
+      errorCategory: "EXTREMELY_HIGH Severity",
+      errorCount: 13,
+      impact: "Critical",
+      recommendation: "CRITICAL: Child safety violation. Immediate retraining required on child sexualization identification. Zero-tolerance policy enforcement. Concentrated in ARABIC (4), PAKISTAN_OTHERS (3), INDONESIAN (2).",
       icon: <Target className="h-5 w-5" />
     },
     {
       rank: 4,
-      market: "DOI_SUPPORT_TERRORISM",
-      errorCategory: "Dangerous Organizations",
-      errorCount: 23,
+      market: "FRAUD_FINANCIAL_INSTRUMENT",
+      errorCategory: "VERY_HIGH Severity",
+      errorCount: 9,
       impact: "High",
-      recommendation: "Standardize interpretation of 'support' vs 'mention' across markets. Create decision tree for borderline cases involving political vs extremist content.",
+      recommendation: "Enhance training on financial fraud detection. Update guidelines with current scam patterns and regional variations. Primary issues in ARABIC (3), MAGHREB (2), RUSSIAN (2).",
       icon: <FileText className="h-5 w-5" />
     },
     {
       rank: 5,
-      market: "PROSTITUTION",
-      errorCategory: "Commercial Sex Policy",
-      errorCount: 19,
-      impact: "Medium",
-      recommendation: "Update policy examples to reflect regional legal variations. Provide cultural context training for markets where prostitution legality varies (GERMAN, UKRAINIAN, INDONESIAN).",
+      market: "ADULT_NCST",
+      errorCategory: "VERY_HIGH Severity",
+      errorCount: 8,
+      impact: "High",
+      recommendation: "Clarify non-consensual sexual content policy boundaries. Implement sensitivity training and trauma-informed review protocols. Errors spread across ARABIC (2), INDONESIAN (2), MALAY (2).",
       icon: <TrendingUp className="h-5 w-5" />
     }
   ];
@@ -98,7 +98,7 @@ export function TopCriticalIssues() {
           <div>
             <h3 className="font-semibold text-sm mb-1">Priority Action Required</h3>
             <p className="text-sm text-muted-foreground">
-              These 5 policy areas represent 309 errors (44.5% of total). Addressing them will have the highest impact on overall accuracy.
+              These 5 high-severity policy areas represent 72 errors (62.1% of EXTREMELY_HIGH/VERY_HIGH errors, 10.4% of total). Critical for user safety and platform integrity.
             </p>
           </div>
         </div>
