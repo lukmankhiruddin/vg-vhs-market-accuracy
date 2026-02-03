@@ -111,12 +111,14 @@ export function ErrorHeatmap() {
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full">
           {/* Header Row */}
-          <div className="flex mb-2">
+          <div className="flex mb-8">
             <div className="w-40 flex-shrink-0" /> {/* Market name column spacer */}
             {categories.map((category) => (
               <div key={category} className="flex-1 min-w-[100px] px-2">
-                <div className="text-xs font-medium text-muted-foreground transform -rotate-45 origin-left whitespace-nowrap">
-                  {category.replace(/_/g, ' ')}
+                <div className="h-20 flex items-end">
+                  <div className="text-xs font-semibold text-foreground transform -rotate-45 origin-bottom-left whitespace-nowrap">
+                    {category.replace(/_/g, ' ')}
+                  </div>
                 </div>
               </div>
             ))}
