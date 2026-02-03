@@ -327,7 +327,7 @@ export default function Home() {
                 <div className="space-y-2">
                   <div className="text-3xl font-bold metric-value text-chart-3">+4.0pp</div>
                   <p className="text-sm text-muted-foreground">
-                    Total improvement from <strong>83.13% (W1)</strong> to <strong>87.13% (W4)</strong>
+                    Overall accuracy improved from <strong>83.13% (W1)</strong> to <strong>87.13% (W4)</strong> across all markets
                   </p>
                 </div>
               </CardContent>
