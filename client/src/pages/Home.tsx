@@ -127,7 +127,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <h1 className="text-3xl font-bold tracking-tight">VG+VHS Market Accuracy</h1>
+                <h1 className="text-3xl font-bold tracking-tight">QER VG+VHS Market Accuracy</h1>
                 <Badge variant="secondary" className="text-sm px-3 py-1 font-medium">
                   Melissa Rose's QER Team
                 </Badge>
