@@ -313,7 +313,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Vendor & Trend Analysis */}
+      {/* Contributing Factors */}
       <section className="py-12 bg-background">
         <div className="container">
           <div className="flex items-start gap-4 mb-6">
@@ -321,16 +321,36 @@ export default function Home() {
               <TrendingDown className="h-6 w-6 text-chart-2" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-2">Root Cause Analysis</h2>
+              <h2 className="text-2xl font-bold mb-2">Contributing Factors</h2>
               <p className="text-muted-foreground max-w-3xl">
-                Vendor performance and weekly trends reveal systematic patterns
+                Analysis of vendor performance and weekly progression patterns across all markets
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-            <VendorPerformanceChart />
-            <WeeklyTrendChart />
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Vendor Performance Comparison</CardTitle>
+                <CardDescription>
+                  4-week average accuracy across 3 content review vendors (CPL, Accenture_NA, Accenture)
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <VendorPerformanceChart />
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Overall Weekly Accuracy Trend</CardTitle>
+                <CardDescription>
+                  All-market combined accuracy progression from Week 1 to Week 4 (Jan 2-29, 2026)
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <WeeklyTrendChart />
+              </CardContent>
+            </Card>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
