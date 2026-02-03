@@ -125,17 +125,11 @@ export function TopCriticalIssues() {
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <span className="text-sm font-bold text-primary">#{issue.rank}</span>
                   </div>
-                  <Badge className={`${getImpactColor(issue.impact)} text-xs`}>
-                    {issue.impact}
-                  </Badge>
                 </div>
 
                 {/* Market & Category */}
                 <div className="mb-3">
                   <h4 className="font-bold text-base mb-1">{issue.market}</h4>
-                  <Badge variant="outline" className="text-xs mb-2">
-                    {issue.errorCategory.replace(/_/g, ' ')}
-                  </Badge>
                   <div className="font-mono font-bold text-red-600 dark:text-red-400 text-xl">
                     {issue.errorCount} errors
                   </div>
