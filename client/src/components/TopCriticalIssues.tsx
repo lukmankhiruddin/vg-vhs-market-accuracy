@@ -8,7 +8,7 @@ interface CriticalIssue {
   market: string;
   errorCategory: string;
   errorCount: number;
-  impact: "CRITICAL - EXTREMELY HIGH" | "CRITICAL - VERY HIGH" | "HIGH - VERY HIGH" | "Critical" | "High" | "Medium";
+  impact: "EXTREMELY HIGH" | "VERY HIGH" | "HIGH" | "Critical" | "High" | "Medium";
   recommendation: string;
   icon: React.ReactNode;
 }
@@ -17,28 +17,28 @@ export function TopCriticalIssues() {
   const criticalIssues: CriticalIssue[] = [
     {
       rank: 1,
-      market: "DANGEROUS_INDIVIDUALS_AND_ORGS",
-      errorCategory: "Dangerous Individuals & Organizations",
-      errorCount: 30,
-      impact: "CRITICAL - VERY HIGH",
-      recommendation: "PAKISTAN_OTHERS (10) • ARABIC (9) • MAGHREB (4) • GERMAN (2) • MALAY (2) • TURKISH (1) • INDONESIAN (1) • HUNGARIAN (1)",
-      icon: <AlertTriangle className="h-5 w-5" />
-    },
-    {
-      rank: 2,
       market: "ADULT_SEXUAL_EXPLOITATION",
       errorCategory: "Adult Sexual Exploitation",
       errorCount: 20,
-      impact: "CRITICAL - EXTREMELY HIGH",
+      impact: "EXTREMELY HIGH",
       recommendation: "CHINESE_MANDARIN (4) • INDONESIAN (4) • PAKISTAN_OTHERS (4) • MAGHREB (3) • ARABIC (2) • RUSSIAN (1) • MALAY (1) • HUNGARIAN (1)",
       icon: <Users className="h-5 w-5" />
+    },
+    {
+      rank: 2,
+      market: "DANGEROUS_INDIVIDUALS_AND_ORGS",
+      errorCategory: "Dangerous Individuals & Organizations",
+      errorCount: 30,
+      impact: "VERY HIGH",
+      recommendation: "PAKISTAN_OTHERS (10) • ARABIC (9) • MAGHREB (4) • GERMAN (2) • MALAY (2) • TURKISH (1) • INDONESIAN (1) • HUNGARIAN (1)",
+      icon: <AlertTriangle className="h-5 w-5" />
     },
     {
       rank: 3,
       market: "ADULT_SEXUAL_SOLICITATION",
       errorCategory: "Adult Sexual Solicitation",
       errorCount: 19,
-      impact: "CRITICAL - VERY HIGH",
+      impact: "VERY HIGH",
       recommendation: "INDONESIAN (5) • HUNGARIAN (4) • MALAY (3) • MAGHREB (2) • TURKISH (1) • GERMAN (1) • CHINESE_MANDARIN (1) • PAKISTAN_OTHERS (1) • ARABIC (1)",
       icon: <Users className="h-5 w-5" />
     }
@@ -125,6 +125,9 @@ export function TopCriticalIssues() {
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <span className="text-sm font-bold text-primary">#{issue.rank}</span>
                   </div>
+                  <Badge className={`${getImpactColor(issue.impact)} text-xs`}>
+                    {issue.impact}
+                  </Badge>
                 </div>
 
                 {/* Market & Category */}
