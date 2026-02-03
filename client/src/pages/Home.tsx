@@ -85,6 +85,22 @@ export default function Home() {
   const marketsAtRisk = marketData.filter(m => m.vg_vhs_accuracy < 85).length;
   const marketsOnTrack = marketData.filter(m => m.vg_vhs_accuracy >= 85).length;
   const totalMarkets = marketData.length;
+  
+  // Calculate biggest improver from weekly trends
+  const biggestImprover = marketData.length > 0 ? marketData.reduce((best, current) => {
+    if (!current.weekly_trend || current.weekly_trend.length < 2) return best;
+    const currentImprovement = current.weekly_trend[current.weekly_trend.length - 1] - current.weekly_trend[0];
+    if (!best.weekly_trend || best.weekly_trend.length < 2) return current;
+    const bestImprovement = best.weekly_trend[best.weekly_trend.length - 1] - best.weekly_trend[0];
+    return currentImprovement > bestImprovement ? current : best;
+  }, marketData[0]) : null;
+  
+  const biggestImproverGain = biggestImprover && biggestImprover.weekly_trend && biggestImprover.weekly_trend.length >= 2
+    ? biggestImprover.weekly_trend[biggestImprover.weekly_trend.length - 1] - biggestImprover.weekly_trend[0]
+    : 0;
+  
+  // Check if current period has data
+  const hasData = marketData.length > 0 && totalSamples > 0;
 
   const handleMarketClick = (market: MarketData) => {
     setSelectedMarket(market);
@@ -166,35 +182,35 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <AnimatedMetricCard
               title="Overall Accuracy"
-              value={overallAccuracy}
-              suffix="%"
-              subtitle={`${overallAccuracy >= targetAccuracy ? '✓' : '↑'} ${Math.abs(overallAccuracy - targetAccuracy).toFixed(2)}pp ${overallAccuracy >= targetAccuracy ? 'above' : 'to'} target (${targetAccuracy}%)`}
-              colorClass={getAccuracyColor(overallAccuracy)}
-              isPercentage={true}
+              value={hasData ? overallAccuracy : 0}
+              suffix={hasData ? "%" : ""}
+              subtitle={hasData ? `${overallAccuracy >= targetAccuracy ? '✓' : '↑'} ${Math.abs(overallAccuracy - targetAccuracy).toFixed(2)}pp ${overallAccuracy >= targetAccuracy ? 'above' : 'to'} target (${targetAccuracy}%)` : "Pending data"}
+              colorClass={hasData ? getAccuracyColor(overallAccuracy) : "text-muted-foreground"}
+              isPercentage={false}
               delay={0}
               icon={BarChart3}
             />
             <AnimatedMetricCard
               title="Biggest Improver"
-              value="RUSSIAN"
-              subtitle="+17.94pp (W1→W4)"
-              colorClass="text-chart-3"
+              value={hasData && biggestImprover ? biggestImprover.market : "N/A"}
+              subtitle={hasData && biggestImprover ? `${biggestImproverGain >= 0 ? '+' : ''}${biggestImproverGain.toFixed(2)}pp (W1→W4)` : "Pending data"}
+              colorClass={hasData ? "text-chart-3" : "text-muted-foreground"}
               delay={200}
               icon={TrendingDown}
             />
             <AnimatedMetricCard
               title="Target Achievement"
-              value={`${marketsOnTrack}/${totalMarkets}`}
-              subtitle="Markets on track (≥85%)"
-              colorClass="text-chart-3"
+              value={hasData ? `${marketsOnTrack}/${totalMarkets}` : "N/A"}
+              subtitle={hasData ? "Markets on track (≥85%)" : "Pending data"}
+              colorClass={hasData ? "text-chart-3" : "text-muted-foreground"}
               delay={400}
               icon={Target}
             />
             <AnimatedMetricCard
               title="Markets at Risk"
-              value={marketsAtRisk}
-              subtitle="Below 85% threshold"
-              colorClass="text-chart-2"
+              value={hasData ? marketsAtRisk : "N/A"}
+              subtitle={hasData ? "Below 85% threshold" : "Pending data"}
+              colorClass={hasData ? "text-chart-2" : "text-muted-foreground"}
               delay={600}
               icon={AlertTriangle}
             />
