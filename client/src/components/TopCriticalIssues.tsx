@@ -141,12 +141,30 @@ export function TopCriticalIssues() {
                   </div>
                 </div>
 
-                {/* Recommendation */}
-                <div className="bg-muted/40 rounded p-2.5 text-xs leading-relaxed">
-                  <div className="font-semibold text-primary mb-1">ACTION:</div>
-                  <p className="text-foreground/90">
-                    {issue.recommendation}
-                  </p>
+                {/* Affected Markets */}
+                <div className="bg-muted/40 rounded p-2.5">
+                  <div className="font-semibold text-primary text-xs mb-2">AFFECTED MARKETS:</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {issue.recommendation.split(' • ').map((market, idx) => {
+                      const [name, count] = market.split(' (');
+                      const errorCount = parseInt(count?.replace(')', '') || '0');
+                      const isHighPriority = errorCount >= 4;
+                      
+                      return (
+                        <div
+                          key={idx}
+                          className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium ${
+                            isHighPriority
+                              ? 'bg-red-100 dark:bg-red-950/30 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800'
+                              : 'bg-muted text-muted-foreground border border-border'
+                          }`}
+                        >
+                          <span className="font-semibold">{name.trim()}</span>
+                          <span className="opacity-75">({errorCount})</span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </CardContent>
             </Card>
