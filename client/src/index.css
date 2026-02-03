@@ -190,3 +190,9 @@
     }
   }
 }
+/* Hide Manus platform badge */
+[data-manus-badge],
+.manus-badge,
+a[href*="manus.im"] {
+  display: none !important;
+}
