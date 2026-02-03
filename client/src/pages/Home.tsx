@@ -73,15 +73,15 @@ export default function Home() {
   };
 
   const getAccuracyColor = (accuracy: number) => {
-    if (accuracy >= 90) return "text-chart-3"; // Green
-    if (accuracy >= 85) return "text-chart-2"; // Amber
-    return "text-chart-1"; // Red
+    if (accuracy >= 85) return "text-chart-3"; // Green - at or above target
+    if (accuracy >= 80) return "text-chart-2"; // Amber - approaching target
+    return "text-chart-1"; // Red - critical
   };
 
   const getAccuracyBgColor = (accuracy: number) => {
-    if (accuracy >= 90) return "bg-chart-3";
-    if (accuracy >= 85) return "bg-chart-2";
-    return "bg-chart-1";
+    if (accuracy >= 85) return "bg-chart-3"; // Green - at or above target
+    if (accuracy >= 80) return "bg-chart-2"; // Amber - approaching target
+    return "bg-chart-1"; // Red - critical
   };
 
   return (
@@ -190,9 +190,9 @@ export default function Home() {
                   <Card 
                     className="cursor-pointer hover:shadow-xl transition-all duration-300 border-l-4"
                     style={{
-                      borderLeftColor: market.vg_vhs_accuracy >= 90 
+                      borderLeftColor: market.vg_vhs_accuracy >= 85 
                         ? 'oklch(0.65 0.18 145)' 
-                        : market.vg_vhs_accuracy >= 85 
+                        : market.vg_vhs_accuracy >= 80 
                         ? 'oklch(0.75 0.15 60)' 
                         : 'oklch(0.65 0.24 27)'
                     }}
@@ -204,7 +204,7 @@ export default function Home() {
                         <Badge 
                           className={`${getAccuracyBgColor(market.vg_vhs_accuracy)} text-white`}
                         >
-                          {market.vg_vhs_accuracy >= 90 ? 'On Track' : market.vg_vhs_accuracy >= 85 ? 'At Risk' : 'Critical'}
+                          {market.vg_vhs_accuracy >= 85 ? 'On Track' : market.vg_vhs_accuracy >= 80 ? 'At Risk' : 'Critical'}
                         </Badge>
                       </div>
                       <CardDescription>{market.sample_count} samples analyzed</CardDescription>

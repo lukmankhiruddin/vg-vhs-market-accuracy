@@ -36,8 +36,8 @@ export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModal
   if (!market) return null;
 
   const getStatusBadge = (accuracy: number) => {
-    if (accuracy >= 90) return { label: "On Track", variant: "default" as const, color: "bg-chart-3" };
-    if (accuracy >= 85) return { label: "At Risk", variant: "secondary" as const, color: "bg-chart-2" };
+    if (accuracy >= 85) return { label: "On Track", variant: "default" as const, color: "bg-chart-3" };
+    if (accuracy >= 80) return { label: "At Risk", variant: "secondary" as const, color: "bg-chart-2" };
     return { label: "Critical", variant: "destructive" as const, color: "bg-chart-1" };
   };
 
@@ -293,7 +293,7 @@ export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModal
               <CardContent>
                 <p className="text-sm text-muted-foreground">
                   With focused intervention, we project <strong>{market.market}</strong> can achieve 
-                  <strong className="text-foreground"> 90%+ accuracy</strong> within 3-4 weeks, 
+                  <strong className="text-foreground"> 85%+ accuracy</strong> within 3-4 weeks, 
                   reducing error volume by approximately <strong className="text-foreground">
                   {Math.round(market.incorrect_count * 0.3)}-{Math.round(market.incorrect_count * 0.4)} cases
                   </strong> per period.
