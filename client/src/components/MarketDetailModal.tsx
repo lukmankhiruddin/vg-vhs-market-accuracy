@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { AlertTriangle, CheckCircle2, TrendingDown, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { marketInsights } from "@/data/marketInsights";
 
 interface MarketData {
   market: string;
@@ -40,13 +41,18 @@ export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModal
   const status = getStatusBadge(market.vg_vhs_accuracy);
   const errorRate = (market.incorrect_count / market.sample_count) * 100;
 
-  // Mock detailed data - in production this would come from API
-  const topErrors = [
+  // Get market-specific insights from data analysis
+  const insight = marketInsights[market.market];
+  
+  // Use real error data from analysis
+  const topErrors = insight ? insight.topErrors.map(e => ({
+    category: e.category,
+    count: e.count,
+    percentage: Math.round((e.count / insight.totalErrors) * 100)
+  })) : [
     { category: "NON_VIOLATING", count: Math.round(market.incorrect_count * 0.36), percentage: 36 },
     { category: "FRAUD_AND_DECEPTION", count: Math.round(market.incorrect_count * 0.15), percentage: 15 },
     { category: "ADULT_SEXUAL_SOLICITATION", count: Math.round(market.incorrect_count * 0.12), percentage: 12 },
-    { category: "PORN", count: Math.round(market.incorrect_count * 0.10), percentage: 10 },
-    { category: "OTHERS", count: Math.round(market.incorrect_count * 0.27), percentage: 27 },
   ];
 
   return (
@@ -252,8 +258,14 @@ export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModal
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm">
-                    Misclassification of <strong>NON_VIOLATING</strong> content represents the largest 
-                    error category, suggesting policy interpretation gaps.
+                    {insight ? (
+                      <>
+                        <strong>{insight.topErrors[0].category}</strong> errors ({insight.topErrors[0].count} cases) 
+                        represent the primary challenge{insight.highSeverityCount > 0 && `, with ${insight.highSeverityCount} high-severity cases requiring immediate attention`}.
+                      </>
+                    ) : (
+                      <>Misclassification of <strong>NON_VIOLATING</strong> content represents the largest error category, suggesting policy interpretation gaps.</>
+                    )}
                   </p>
                 </CardContent>
               </Card>
@@ -267,8 +279,15 @@ export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModal
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm">
-                    Current error rate of <strong>{errorRate.toFixed(1)}%</strong> requires 
-                    immediate attention to prevent operational bottlenecks.
+                    {insight ? (
+                      <>
+                        {insight.trend === 'improving' ? '📈 Improving trend' : insight.trend === 'declining' ? '📉 Declining trend' : insight.trend === 'volatile' ? '⚠️ Volatile performance' : '➡️ Stable'} 
+                        ({insight.improvement > 0 ? '+' : ''}{insight.improvement.toFixed(2)}pp W1→W4)
+                        {insight.lowSample && ' • Low sample size limits reliability'}
+                      </>
+                    ) : (
+                      <>Current error rate of <strong>{errorRate.toFixed(1)}%</strong> requires immediate attention to prevent operational bottlenecks.</>
+                    )}
                   </p>
                 </CardContent>
               </Card>
@@ -284,53 +303,61 @@ export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModal
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3">
-                  <li className="flex gap-3">
-                    <span className="text-primary font-bold">1.</span>
-                    <span className="text-sm">
-                      Schedule targeted training session for <strong>{market.market}</strong> reviewers 
-                      focusing on NON_VIOLATING content baseline identification.
-                    </span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-primary font-bold">2.</span>
-                    <span className="text-sm">
-                      Implement weekly calibration exercises with ground truth examples from this market's 
-                      most common error patterns.
-                    </span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-primary font-bold">3.</span>
-                    <span className="text-sm">
-                      Increase QA sampling rate to 15% for the next 2 weeks to monitor improvement trajectory.
-                    </span>
-                  </li>
-                </ul>
+                {insight ? (
+                  <ul className="space-y-3">
+                    {insight.immediateActions.map((action, idx) => (
+                      <li key={idx} className="flex gap-3">
+                        <span className="text-primary font-bold">{idx + 1}.</span>
+                        <span className="text-sm">{action}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <ul className="space-y-3">
+                    <li className="flex gap-3">
+                      <span className="text-primary font-bold">1.</span>
+                      <span className="text-sm">
+                        Schedule targeted training session for <strong>{market.market}</strong> reviewers 
+                        focusing on NON_VIOLATING content baseline identification.
+                      </span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="text-primary font-bold">2.</span>
+                      <span className="text-sm">
+                        Implement weekly calibration exercises with ground truth examples from this market's 
+                        most common error patterns.
+                      </span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="text-primary font-bold">3.</span>
+                      <span className="text-sm">
+                        Increase QA sampling rate to 15% for the next 2 weeks to monitor improvement trajectory.
+                      </span>
+                    </li>
+                  </ul>
+                )}
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-blue-50 dark:bg-blue-950/20">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5" />
-                  Team Support
-                </CardTitle>
+                <CardTitle className="text-base">What's Happening</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 text-sm">
-                  <p>
-                    <strong>Policy Team:</strong> Provide clarified guidance on edge cases specific to 
-                    {market.market} cultural context.
-                  </p>
-                  <p>
-                    <strong>Operations:</strong> Allocate additional review time for complex cases to 
-                    reduce rushed decisions.
-                  </p>
-                  <p>
-                    <strong>Training:</strong> Develop market-specific training modules addressing the 
-                    top 3 error categories identified above.
-                  </p>
-                </div>
+                <p className="text-sm text-muted-foreground">
+                  {insight ? insight.whatHappening : `${market.market} is currently at ${market.vg_vhs_accuracy.toFixed(2)}% accuracy with ${market.incorrect_count} total errors across ${market.sample_count} samples.`}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-amber-50 dark:bg-amber-950/20">
+              <CardHeader>
+                <CardTitle className="text-base">Why It's Happening</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  {insight ? insight.whyHappening : `Error patterns suggest policy interpretation challenges, particularly around ${topErrors[0].category} classification.`}
+                </p>
               </CardContent>
             </Card>
 
@@ -340,11 +367,7 @@ export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModal
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  With focused intervention, we project <strong>{market.market}</strong> can achieve 
-                  <strong className="text-foreground"> 85%+ accuracy</strong> within 3-4 weeks, 
-                  reducing error volume by approximately <strong className="text-foreground">
-                  {Math.round(market.incorrect_count * 0.3)}-{Math.round(market.incorrect_count * 0.4)} cases
-                  </strong> per period.
+                  {insight ? insight.expectedOutcome : `With focused intervention, we project ${market.market} can achieve 85%+ accuracy within 3-4 weeks, reducing error volume by approximately ${Math.round(market.incorrect_count * 0.3)}-${Math.round(market.incorrect_count * 0.4)} cases per period.`}
                 </p>
               </CardContent>
             </Card>
