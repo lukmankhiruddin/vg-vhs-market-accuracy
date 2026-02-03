@@ -181,7 +181,7 @@ export function TopCriticalIssues() {
           </div>
           <div className="text-sm">
             <span className="font-semibold">Expected Impact:</span>
-            <span className="text-green-600 dark:text-green-400 ml-2 font-semibold">+2-3% accuracy improvement</span>
+            <span className="text-green-600 dark:text-green-400 ml-2 font-semibold">+1.6pp accuracy improvement (85.02% → 86.57%)</span>
           </div>
         </div>
       </div>
