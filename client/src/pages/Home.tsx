@@ -34,27 +34,27 @@ export default function Home() {
   const [hoveredMarket, setHoveredMarket] = useState<string | null>(null);
 
   useEffect(() => {
-    // In production, this would fetch from an API
+    // Data from 4-Week VG+VHS+ Avg (AUTO-POPULATED sheet)
     const data: MarketData[] = [
-      { market: "ARABIC", vg_accuracy: 80.90, vhs_accuracy: 97.75, vg_vhs_accuracy: 78.65, sample_count: 89, incorrect_count: 19 },
-      { market: "GERMAN", vg_accuracy: 81.63, vhs_accuracy: 96.94, vg_vhs_accuracy: 81.63, sample_count: 98, incorrect_count: 18 },
-      { market: "INDONESIAN", vg_accuracy: 87.83, vhs_accuracy: 96.30, vg_vhs_accuracy: 84.66, sample_count: 189, incorrect_count: 29 },
-      { market: "CHINESE_MANDARIN", vg_accuracy: 84.82, vhs_accuracy: 95.54, vg_vhs_accuracy: 84.82, sample_count: 112, incorrect_count: 17 },
-      { market: "PAKISTAN_OTHERS", vg_accuracy: 90.32, vhs_accuracy: 96.77, vg_vhs_accuracy: 87.10, sample_count: 93, incorrect_count: 12 },
-      { market: "UKRAINIAN", vg_accuracy: 88.73, vhs_accuracy: 97.18, vg_vhs_accuracy: 88.73, sample_count: 71, incorrect_count: 8 },
-      { market: "HUNGARIAN", vg_accuracy: 90.67, vhs_accuracy: 98.67, vg_vhs_accuracy: 89.33, sample_count: 75, incorrect_count: 8 },
-      { market: "TURKISH", vg_accuracy: 90.74, vhs_accuracy: 99.07, vg_vhs_accuracy: 89.81, sample_count: 108, incorrect_count: 11 },
-      { market: "MAGHREB", vg_accuracy: 92.08, vhs_accuracy: 100.00, vg_vhs_accuracy: 92.08, sample_count: 101, incorrect_count: 8 },
-      { market: "MALAY", vg_accuracy: 92.45, vhs_accuracy: 100.00, vg_vhs_accuracy: 92.45, sample_count: 53, incorrect_count: 4 },
-      { market: "RUSSIAN", vg_accuracy: 94.95, vhs_accuracy: 98.99, vg_vhs_accuracy: 93.94, sample_count: 99, incorrect_count: 6 },
+      { market: "ARABIC", vg_accuracy: 73.95, vhs_accuracy: 73.95, vg_vhs_accuracy: 73.95, sample_count: 476, incorrect_count: 123 },
+      { market: "CHINESE_MANDARIN", vg_accuracy: 85.40, vhs_accuracy: 85.40, vg_vhs_accuracy: 85.40, sample_count: 459, incorrect_count: 66 },
+      { market: "GERMAN", vg_accuracy: 83.17, vhs_accuracy: 83.17, vg_vhs_accuracy: 83.17, sample_count: 404, incorrect_count: 68 },
+      { market: "HUNGARIAN", vg_accuracy: 88.15, vhs_accuracy: 88.15, vg_vhs_accuracy: 88.15, sample_count: 287, incorrect_count: 34 },
+      { market: "INDONESIAN", vg_accuracy: 86.94, vhs_accuracy: 86.94, vg_vhs_accuracy: 86.94, sample_count: 697, incorrect_count: 91 },
+      { market: "MAGHREB", vg_accuracy: 90.04, vhs_accuracy: 90.04, vg_vhs_accuracy: 90.04, sample_count: 452, incorrect_count: 44 },
+      { market: "MALAY", vg_accuracy: 85.53, vhs_accuracy: 85.53, vg_vhs_accuracy: 85.53, sample_count: 235, incorrect_count: 34 },
+      { market: "PAKISTAN_OTHERS", vg_accuracy: 86.18, vhs_accuracy: 86.18, vg_vhs_accuracy: 86.18, sample_count: 492, incorrect_count: 67 },
+      { market: "RUSSIAN", vg_accuracy: 89.22, vhs_accuracy: 89.22, vg_vhs_accuracy: 89.22, sample_count: 371, incorrect_count: 40 },
+      { market: "TURKISH", vg_accuracy: 81.76, vhs_accuracy: 81.76, vg_vhs_accuracy: 81.76, sample_count: 433, incorrect_count: 78 },
+      { market: "UKRAINIAN", vg_accuracy: 86.53, vhs_accuracy: 86.53, vg_vhs_accuracy: 86.53, sample_count: 334, incorrect_count: 45 },
     ];
     setMarketData(data);
   }, []);
 
-  const overallAccuracy = 87.13;
+  const overallAccuracy = 85.02;
   const targetAccuracy = 85;
-  const totalSamples = 1088;
-  const totalErrors = 140;
+  const totalSamples = 4640;
+  const totalErrors = 695;
   const marketsAtRisk = marketData.filter(m => m.vg_vhs_accuracy < 85).length;
 
   const handleMarketClick = (market: MarketData) => {
@@ -242,18 +242,18 @@ export default function Home() {
           >
             <h2 className="text-2xl font-bold mb-2">Error Distribution Analysis</h2>
             <p className="text-muted-foreground">
-              Breakdown of 140 misclassifications by category
+              Breakdown of 695 misclassifications by category (4-week total)
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {[
-              { name: 'NON_VIOLATING', value: 50, percentage: 35.7, color: 'oklch(0.65 0.24 27)', description: 'False positives on safe content' },
-              { name: 'FRAUD_AND_DECEPTION', value: 14, percentage: 10.0, color: 'oklch(0.75 0.15 60)', description: 'Scam and misleading content' },
-              { name: 'ADULT_SEXUAL_SOLICITATION', value: 13, percentage: 9.3, color: 'oklch(0.55 0.15 30)', description: 'Inappropriate solicitation' },
-              { name: 'PORN', value: 11, percentage: 7.9, color: 'oklch(0.65 0.12 340)', description: 'Adult content misclassification' },
-              { name: 'DANGEROUS_INDIVIDUALS', value: 10, percentage: 7.1, color: 'oklch(0.55 0.12 260)', description: 'Extremist content identification' },
-              { name: 'OTHERS', value: 42, percentage: 30.0, color: 'oklch(0.70 0.08 220)', description: 'Miscellaneous categories' },
+              { name: 'NON_VIOLATING', value: 248, percentage: 35.7, color: 'oklch(0.65 0.24 27)', description: 'False positives on safe content' },
+              { name: 'FRAUD_AND_DECEPTION', value: 70, percentage: 10.0, color: 'oklch(0.75 0.15 60)', description: 'Scam and misleading content' },
+              { name: 'ADULT_SEXUAL_SOLICITATION', value: 65, percentage: 9.3, color: 'oklch(0.55 0.15 30)', description: 'Inappropriate solicitation' },
+              { name: 'PORN', value: 55, percentage: 7.9, color: 'oklch(0.65 0.12 340)', description: 'Adult content misclassification' },
+              { name: 'DANGEROUS_INDIVIDUALS', value: 49, percentage: 7.1, color: 'oklch(0.55 0.12 260)', description: 'Extremist content identification' },
+              { name: 'OTHERS', value: 208, percentage: 30.0, color: 'oklch(0.70 0.08 220)', description: 'Miscellaneous categories' },
             ].map((category, index) => (
               <motion.div
                 key={category.name}
@@ -326,9 +326,9 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <div className="text-3xl font-bold metric-value text-chart-1">50</div>
+                  <div className="text-3xl font-bold metric-value text-chart-1">248</div>
                   <p className="text-sm text-muted-foreground">
-                    <strong>NON_VIOLATING</strong> misclassifications represent 36% of all errors
+                    <strong>NON_VIOLATING</strong> misclassifications represent 35.7% of all errors (4-week)
                   </p>
                 </div>
               </CardContent>
