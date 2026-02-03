@@ -56,6 +56,7 @@ export default function Home() {
   }, []);
 
   const overallAccuracy = 87.13;
+  const targetAccuracy = 85;
   const totalSamples = 1088;
   const totalErrors = 140;
   const marketsAtRisk = marketData.filter(m => m.vg_vhs_accuracy < 85).length;
@@ -124,7 +125,7 @@ export default function Home() {
               title="Overall Accuracy"
               value={overallAccuracy}
               suffix="%"
-              subtitle="↓ 7.87pp below target (95%)"
+              subtitle={`${overallAccuracy >= targetAccuracy ? '✓' : '↑'} ${Math.abs(overallAccuracy - targetAccuracy).toFixed(2)}pp ${overallAccuracy >= targetAccuracy ? 'above' : 'to'} target (${targetAccuracy}%)`}
               colorClass={getAccuracyColor(overallAccuracy)}
               isPercentage={true}
               delay={0}
@@ -158,42 +159,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Interactive Visualizations Section */}
-      <section className="py-12 bg-card">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8"
-          >
-            <h2 className="text-2xl font-bold mb-2">Interactive Performance Dashboard</h2>
-            <p className="text-muted-foreground">
-              Hover over charts and click on markets for detailed analysis
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-            <MarketAccuracyBarChart data={marketData} />
-            <MarketPerformanceRadar data={marketData} />
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <ErrorDistributionPie />
-            <SampleVolumeAccuracyChart data={marketData} />
-          </div>
-        </div>
-      </section>
-
       {/* Market Cards with Click-through */}
-      <section className="py-12 bg-background">
+      <section className="py-12 bg-card">
         <div className="container">
           <div className="flex items-start gap-4 mb-6">
             <div className="p-3 rounded-lg bg-primary/10">
               <AlertTriangle className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-2">Market Performance Overview</h2>
+              <h2 className="text-2xl font-bold mb-2">Market Performance Review</h2>
               <p className="text-muted-foreground max-w-3xl">
                 Click on any market card to view detailed analysis, error breakdown, and recommended actions
               </p>
@@ -256,8 +230,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Vendor & Trend Analysis */}
+      {/* Interactive Visualizations Section */}
       <section className="py-12 bg-card">
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8"
+          >
+            <h2 className="text-2xl font-bold mb-2">Interactive Performance Dashboard</h2>
+            <p className="text-muted-foreground">
+              Simplified visualizations for quick insights
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <ErrorDistributionPie />
+            <SampleVolumeAccuracyChart data={marketData} />
+          </div>
+        </div>
+      </section>
+
+      {/* Vendor & Trend Analysis */}
+      <section className="py-12 bg-background">
         <div className="container">
           <div className="flex items-start gap-4 mb-6">
             <div className="p-3 rounded-lg bg-chart-2/10">
@@ -337,7 +333,7 @@ export default function Home() {
             <div>
               <h2 className="text-2xl font-bold mb-2">Strategic Recommendations</h2>
               <p className="text-muted-foreground max-w-3xl">
-                Three-pronged approach to achieve 95% accuracy target
+                Three-pronged approach to achieve 85%+ accuracy target
               </p>
             </div>
           </div>

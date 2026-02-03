@@ -288,8 +288,10 @@ export function SampleVolumeAccuracyChart({ data }: { data: MarketData[] }) {
 // Trend Line Chart (Weekly)
 export function WeeklyTrendChart() {
   const trendData = [
-    { week: 'Week 4', accuracy: 87.11, samples: 225, errors: 29 },
-    { week: 'Week 5', accuracy: 87.14, samples: 863, errors: 111 },
+    { week: 'Week 1 (Jan 2-8)', accuracy: 86.52, samples: 1150, errors: 155 },
+    { week: 'Week 2 (Jan 9-15)', accuracy: 86.83, samples: 1253, errors: 165 },
+    { week: 'Week 3 (Jan 16-22)', accuracy: 87.38, samples: 1149, errors: 145 },
+    { week: 'Week 4 (Jan 23-29)', accuracy: 87.13, samples: 1088, errors: 140 },
   ];
 
   return (
@@ -303,7 +305,7 @@ export function WeeklyTrendChart() {
           <LineChart data={trendData}>
             <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.88 0.005 220)" />
             <XAxis dataKey="week" />
-            <YAxis domain={[85, 90]} tick={{ fontSize: 12 }} />
+            <YAxis domain={[85, 89]} tick={{ fontSize: 12 }} />
             <Tooltip content={<CustomTooltip />} />
             <Legend />
             <Line 
