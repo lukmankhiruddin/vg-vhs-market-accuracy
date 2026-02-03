@@ -228,9 +228,7 @@ export default function Home() {
                           {market.vg_vhs_accuracy >= 85 ? 'On Track' : market.vg_vhs_accuracy >= 80 ? 'At Risk' : 'Critical'}
                         </Badge>
                       </div>
-                      <CardDescription>
-                        {market.sample_count} samples analyzed (4-week total)
-                      </CardDescription>
+
                     </CardHeader>
                     <CardContent>
                       <div className={`text-4xl font-bold metric-value mb-3 ${getAccuracyColor(market.vg_vhs_accuracy)}`}>
