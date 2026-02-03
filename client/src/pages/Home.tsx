@@ -379,8 +379,8 @@ export default function Home() {
                 errors: "202 errors (29.1% of total)",
                 actions: [
                   "Deploy targeted training for ARABIC (36 errors), TURKISH (31), INDONESIAN (27) on NON_VIOLATING vs FRAUD_AND_DECEPTION distinction",
-                  "Update policy guidelines with 15+ real case examples from these 202 misclassifications",
-                  "Implement weekly calibration sessions for markets with >15 NON_VIOLATING errors"
+                  "Share top 10 misclassified cases in weekly team briefings to clarify edge cases and improve reviewer judgment",
+                  "Implement bi-weekly calibration sessions for markets with >15 NON_VIOLATING errors"
                 ]
               },
               {
@@ -390,7 +390,7 @@ export default function Home() {
                 errors: "69 critical errors (EXTREMELY_HIGH/VERY_HIGH)",
                 actions: [
                   "Mandate 100% QA review for DANGEROUS_INDIVIDUALS_AND_ORGS, ADULT_SEXUAL_EXPLOITATION content in PAKISTAN_OTHERS, ARABIC, MAGHREB",
-                  "Establish escalation protocol: All high-severity errors trigger immediate case review within 24 hours",
+                  "Flag high-severity errors for team lead review in weekly quality meetings to identify patterns and prevent recurrence",
                   "Deploy specialized training: Terrorism content (PAKISTAN_OTHERS), Sexual exploitation (ARABIC)"
                 ]
               },
@@ -400,9 +400,9 @@ export default function Home() {
                 impact: "Improve confidence in accuracy metrics",
                 errors: "3 markets with insufficient sampling",
                 actions: [
-                  "Increase weekly sample targets: HUNGARIAN (72→120), MALAY (59→100), UKRAINIAN (84→120)",
-                  "Rationale: Current samples insufficient for 95% confidence interval (need 100+ for statistical reliability)",
-                  "Prioritize HUNGARIAN: 88.15% accuracy may be inflated due to low sample size (n=72)"
+                  "Monitor HUNGARIAN, MALAY, UKRAINIAN accuracy trends closely due to low sample sizes (72, 59, 84 avg/week)",
+                  "Validate accuracy metrics with additional spot checks before making strategic decisions based on these markets",
+                  "Consider combining low-sample markets with similar language/culture for more reliable trend analysis"
                 ]
               }
             ].map((rec, index) => (
