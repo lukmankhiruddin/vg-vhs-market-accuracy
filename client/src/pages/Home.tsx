@@ -16,7 +16,7 @@ import {
   VendorPerformanceChart
 } from "@/components/InteractiveCharts";
 import { MarketDetailModal } from "@/components/MarketDetailModal";
-import { ErrorFlowSankey } from "@/components/ErrorFlowSankey";
+import { ErrorHeatmap } from "@/components/ErrorHeatmap";
 import { toast } from "sonner";
 
 interface MarketData {
@@ -281,11 +281,11 @@ export default function Home() {
           >
             <h2 className="text-2xl font-bold mb-2">Error Distribution Analysis</h2>
             <p className="text-muted-foreground">
-              Interactive flow showing how 695 errors distribute from categories to markets (4-week total)
+              Heatmap showing error concentration across markets and categories (4-week total: 695 errors)
             </p>
           </motion.div>
 
-          <ErrorFlowSankey />
+          <ErrorHeatmap />
         </div>
       </section>
 
