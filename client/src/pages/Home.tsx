@@ -295,28 +295,28 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {/* Top 3 High-Severity Policy Issues */}
+      {marketData.length > 0 && (
+        <section className="py-12 bg-muted/30">
+          <div className="container">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mb-8"
+            >
+              <h2 className="text-2xl font-bold mb-2">Top 3 High-Severity Policy Issues</h2>
+              <p className="text-muted-foreground">
+                EXTREMELY_HIGH & VERY_HIGH severity violations requiring immediate intervention for user safety and platform integrity
+              </p>
+            </motion.div>
 
-      {/* Interactive Visualizations Section */}
-      <section className="py-12 bg-card">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8"
-          >
-            <h2 className="text-2xl font-bold mb-2">Top 3 High-Severity Policy Issues</h2>
-            <p className="text-muted-foreground">
-              EXTREMELY_HIGH & VERY_HIGH severity violations requiring immediate intervention for user safety and platform integrity
-            </p>
-          </motion.div>
-
-          <TopCriticalIssues />
-        </div>
-      </section>
-
-      {/* Contributing Factors */}
-      <section className="py-12 bg-background">
+            <TopCriticalIssues />
+          </div>
+        </section>
+      )}      {/* Contributing Factors */}
+      {marketData.length > 0 && (
+        <section className="py-12 bg-background">
         <div className="container">
           <div className="flex items-start gap-4 mb-6">
             <div className="p-3 rounded-lg bg-chart-2/10">
@@ -374,11 +374,12 @@ export default function Home() {
             </Card>
           </div>
         </div>
-      </section>
+        </section>
+      )}
 
-      {/* Recommendations Section */}
-      <section 
-        className="py-12 bg-cover bg-center relative"
+      {/* Strategic Recommendations */}
+      {marketData.length > 0 && (
+        <section className="py-12 bg-muted/30 bg-cover bg-center relative"
         style={{
           backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('https://private-us-east-1.manuscdn.com/sessionFile/kNILivNRDQjmdO0cTx9Sxo/sandbox/oXmpvZ1AXPkXcZBOGWMsKS-img-3_1770148645000_na1fn_c3RyYXRlZ2ljLWluc2lnaHRzLWJn.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUva05JTGl2TlJEUWptZE8wY1R4OVN4by9zYW5kYm94L29YbXB2WjFBWFBrWGNaQk9HV01zS1MtaW1nLTNfMTc3MDE0ODY0NTAwMF9uYTFmbl9jM1J5WVhSbFoybGpMV2x1YzJsbmFIUnpMV0puLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=pG81N1jRa8kMC8M681kSt8RLUTb8Lm323ZWep1UdmantqGZRtVNAy6yY-bt3bcDcror21mXQlUa82jrEwxNzS1i1pQvgUPZGaGukLuhkhRGlinASyHBF5S85yc3YByUQRNENwkdkbafqJTaKq6GtLIKvZ2Wq2VD1m2cPKx40lHPcrMQY~oZQfNhGy982ntEkisHuJiUXPxmmK44a0kpaGG4mvuMut3JvXT8czcXjyg62ctWNe2F9c99Cb1CDfvTK2TZRFXUawCjHtP8l--OLAQpO6yfiTUaU9Y0V~b4QdXQCIQyRPJZbhwX~4j4awpmhdjO4OsYT7pu0xMeC8cWNUQ__')`
         }}
@@ -463,7 +464,8 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
+        </section>
+      )}
 
       {/* Market Detail Modal */}
       <MarketDetailModal 
