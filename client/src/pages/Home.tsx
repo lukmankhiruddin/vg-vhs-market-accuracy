@@ -16,7 +16,7 @@ import {
   VendorPerformanceChart
 } from "@/components/InteractiveCharts";
 import { MarketDetailModal } from "@/components/MarketDetailModal";
-import { ErrorHeatmap } from "@/components/ErrorHeatmap";
+import { TopCriticalIssues } from "@/components/TopCriticalIssues";
 import { toast } from "sonner";
 
 interface MarketData {
@@ -279,13 +279,13 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <h2 className="text-2xl font-bold mb-2">Error Distribution Analysis</h2>
+            <h2 className="text-2xl font-bold mb-2">Top 5 Critical Issues</h2>
             <p className="text-muted-foreground">
-              Heatmap showing error concentration across markets and categories (4-week total: 695 errors)
+              Highest-impact problems requiring immediate attention, ranked by error count and business impact
             </p>
           </motion.div>
 
-          <ErrorHeatmap />
+          <TopCriticalIssues />
         </div>
       </section>
 
