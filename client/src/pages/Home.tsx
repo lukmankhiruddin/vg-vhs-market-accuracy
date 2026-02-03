@@ -304,32 +304,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Vendor Performance Comparison</CardTitle>
-                <CardDescription>
-                  4-week average accuracy across 3 content review vendors (CPL, Accenture_NA, Accenture)
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <VendorPerformanceChart />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Overall Weekly Accuracy Trend</CardTitle>
-                <CardDescription>
-                  All-market combined accuracy progression from Week 1 to Week 4 (Jan 2-29, 2026)
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <WeeklyTrendChart />
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">Top Error Category</CardTitle>
