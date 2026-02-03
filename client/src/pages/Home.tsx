@@ -95,7 +95,18 @@ export default function Home() {
                   Melissa Rose's QER Team
                 </Badge>
               </div>
-              <p className="text-muted-foreground">4-Week Performance Review • January 2026</p>
+              <div className="flex items-center gap-3">
+                <p className="text-muted-foreground">4-Week Performance Review • January 2026</p>
+                <span className="text-muted-foreground">•</span>
+                <a 
+                  href="https://docs.google.com/spreadsheets/d/1s7-cup_Y74jWD8FjGl2gLPwL7XZXUs--Ug4axoUDRbY/edit?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-primary hover:underline flex items-center gap-1"
+                >
+                  📊 Source Data
+                </a>
+              </div>
             </div>
             <div className="flex items-center gap-3">
               <Badge variant="outline" className="text-sm px-4 py-2">
