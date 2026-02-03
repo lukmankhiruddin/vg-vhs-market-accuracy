@@ -43,9 +43,9 @@ export default function Home() {
     jan2026: {
       label: 'January 2026',
       dateRange: 'Jan 2-29, 2026',
-      overallAccuracy: 85.02,
+      overallAccuracy: 85.13,
       totalSamples: 4640,
-      totalErrors: 695,
+      totalErrors: 690,
       data: [
         { market: "ARABIC", vg_accuracy: 73.95, vhs_accuracy: 73.95, vg_vhs_accuracy: 73.95, sample_count: 476, incorrect_count: 123, weekly_trend: [72.36, 69.47, 76.69, 78.65], avg_sample: 119 },
         { market: "CHINESE_MANDARIN", vg_accuracy: 85.40, vhs_accuracy: 85.40, vg_vhs_accuracy: 85.40, sample_count: 459, incorrect_count: 66, weekly_trend: [89.68, 85.09, 81.31, 84.82], avg_sample: 115 },
