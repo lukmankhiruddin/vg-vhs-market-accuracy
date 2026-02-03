@@ -27,6 +27,7 @@ interface MarketData {
   sample_count: number;
   incorrect_count: number;
   weekly_trend?: number[]; // W1, W2, W3, W4 accuracy percentages
+  avg_sample: number; // 4-week average sample count
 }
 
 export default function Home() {
@@ -38,17 +39,17 @@ export default function Home() {
   useEffect(() => {
     // Data from 4-Week VG+VHS+ Avg (AUTO-POPULATED sheet)
     const data: MarketData[] = [
-      { market: "ARABIC", vg_accuracy: 73.95, vhs_accuracy: 73.95, vg_vhs_accuracy: 73.95, sample_count: 476, incorrect_count: 123, weekly_trend: [72.36, 69.47, 76.69, 78.65] },
-      { market: "CHINESE_MANDARIN", vg_accuracy: 85.40, vhs_accuracy: 85.40, vg_vhs_accuracy: 85.40, sample_count: 459, incorrect_count: 66, weekly_trend: [89.68, 85.09, 81.31, 84.82] },
-      { market: "GERMAN", vg_accuracy: 83.17, vhs_accuracy: 83.17, vg_vhs_accuracy: 83.17, sample_count: 404, incorrect_count: 68, weekly_trend: [86.21, 81.25, 84.11, 81.63] },
-      { market: "HUNGARIAN", vg_accuracy: 88.15, vhs_accuracy: 88.15, vg_vhs_accuracy: 88.15, sample_count: 287, incorrect_count: 34, weekly_trend: [88.14, 92.41, 82.43, 89.33] },
-      { market: "INDONESIAN", vg_accuracy: 86.94, vhs_accuracy: 86.94, vg_vhs_accuracy: 86.94, sample_count: 697, incorrect_count: 91, weekly_trend: [85.81, 86.96, 91.10, 84.66] },
-      { market: "MAGHREB", vg_accuracy: 90.04, vhs_accuracy: 90.04, vg_vhs_accuracy: 90.04, sample_count: 452, incorrect_count: 44, weekly_trend: [87.18, 91.18, 89.80, 92.08] },
-      { market: "MALAY", vg_accuracy: 85.53, vhs_accuracy: 85.53, vg_vhs_accuracy: 85.53, sample_count: 235, incorrect_count: 34, weekly_trend: [87.10, 74.60, 89.47, 92.45] },
-      { market: "PAKISTAN_OTHERS", vg_accuracy: 86.18, vhs_accuracy: 86.18, vg_vhs_accuracy: 86.18, sample_count: 492, incorrect_count: 67, weekly_trend: [80.28, 89.76, 88.46, 87.10] },
-      { market: "RUSSIAN", vg_accuracy: 89.22, vhs_accuracy: 89.22, vg_vhs_accuracy: 89.22, sample_count: 371, incorrect_count: 40, weekly_trend: [90.00, 88.73, 84.68, 93.94] },
-      { market: "TURKISH", vg_accuracy: 81.76, vhs_accuracy: 81.76, vg_vhs_accuracy: 81.76, sample_count: 433, incorrect_count: 78, weekly_trend: [71.88, 85.48, 78.10, 89.81] },
-      { market: "UKRAINIAN", vg_accuracy: 86.53, vhs_accuracy: 86.53, vg_vhs_accuracy: 86.53, sample_count: 334, incorrect_count: 45, weekly_trend: [79.57, 87.64, 91.36, 88.73] },
+      { market: "ARABIC", vg_accuracy: 73.95, vhs_accuracy: 73.95, vg_vhs_accuracy: 73.95, sample_count: 476, incorrect_count: 123, weekly_trend: [72.36, 69.47, 76.69, 78.65], avg_sample: 119 },
+      { market: "CHINESE_MANDARIN", vg_accuracy: 85.40, vhs_accuracy: 85.40, vg_vhs_accuracy: 85.40, sample_count: 459, incorrect_count: 66, weekly_trend: [89.68, 85.09, 81.31, 84.82], avg_sample: 115 },
+      { market: "GERMAN", vg_accuracy: 83.17, vhs_accuracy: 83.17, vg_vhs_accuracy: 83.17, sample_count: 404, incorrect_count: 68, weekly_trend: [86.21, 81.25, 84.11, 81.63], avg_sample: 101 },
+      { market: "HUNGARIAN", vg_accuracy: 88.15, vhs_accuracy: 88.15, vg_vhs_accuracy: 88.15, sample_count: 287, incorrect_count: 34, weekly_trend: [88.14, 92.41, 82.43, 89.33], avg_sample: 72 },
+      { market: "INDONESIAN", vg_accuracy: 86.94, vhs_accuracy: 86.94, vg_vhs_accuracy: 86.94, sample_count: 697, incorrect_count: 91, weekly_trend: [85.81, 86.96, 91.10, 84.66], avg_sample: 174 },
+      { market: "MAGHREB", vg_accuracy: 90.04, vhs_accuracy: 90.04, vg_vhs_accuracy: 90.04, sample_count: 452, incorrect_count: 44, weekly_trend: [87.18, 91.18, 89.80, 92.08], avg_sample: 113 },
+      { market: "MALAY", vg_accuracy: 85.53, vhs_accuracy: 85.53, vg_vhs_accuracy: 85.53, sample_count: 235, incorrect_count: 34, weekly_trend: [87.10, 74.60, 89.47, 92.45], avg_sample: 59 },
+      { market: "PAKISTAN_OTHERS", vg_accuracy: 86.18, vhs_accuracy: 86.18, vg_vhs_accuracy: 86.18, sample_count: 492, incorrect_count: 67, weekly_trend: [80.28, 89.76, 88.46, 87.10], avg_sample: 123 },
+      { market: "RUSSIAN", vg_accuracy: 89.22, vhs_accuracy: 89.22, vg_vhs_accuracy: 89.22, sample_count: 371, incorrect_count: 40, weekly_trend: [90.00, 88.73, 84.68, 93.94], avg_sample: 93 },
+      { market: "TURKISH", vg_accuracy: 81.76, vhs_accuracy: 81.76, vg_vhs_accuracy: 81.76, sample_count: 433, incorrect_count: 78, weekly_trend: [71.88, 85.48, 78.10, 89.81], avg_sample: 108 },
+      { market: "UKRAINIAN", vg_accuracy: 86.53, vhs_accuracy: 86.53, vg_vhs_accuracy: 86.53, sample_count: 334, incorrect_count: 45, weekly_trend: [79.57, 87.64, 91.36, 88.73], avg_sample: 84 },
     ];
     setMarketData(data);
   }, []);
@@ -187,15 +188,7 @@ export default function Home() {
               <p className="text-muted-foreground max-w-3xl">
                 Click on any market card to view detailed analysis, error breakdown, and recommended actions
               </p>
-              <div className="mt-3 flex items-center gap-2 text-sm">
-                <span className="font-medium">4-Week Avg Sampling:</span>
-                <Badge variant="outline" className="font-mono">422 samples/market</Badge>
-                <span className="text-muted-foreground">•</span>
-                <div className="flex items-center gap-1 text-muted-foreground">
-                  <AlertCircle className="h-4 w-4" />
-                  <span>Low sample markets may have less reliable accuracy</span>
-                </div>
-              </div>
+
             </div>
           </div>
 
@@ -227,14 +220,7 @@ export default function Home() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <CardTitle className="text-lg">{market.market}</CardTitle>
-                          {market.sample_count < 100 && (
-                            <div className="relative group">
-                              <AlertCircle className="h-4 w-4 text-amber-500" />
-                              <div className="absolute left-0 top-6 w-48 p-2 bg-popover border border-border rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 text-xs">
-                                Low sample size ({market.sample_count} avg) may affect accuracy reliability
-                              </div>
-                            </div>
-                          )}
+
                         </div>
                         <Badge 
                           className={`${getAccuracyBgColor(market.vg_vhs_accuracy)} text-white`}
@@ -243,8 +229,7 @@ export default function Home() {
                         </Badge>
                       </div>
                       <CardDescription>
-                        {market.sample_count} samples analyzed
-                        {market.sample_count < 100 && <span className="text-amber-600 ml-1">(Low Sample)</span>}
+                        {market.sample_count} samples analyzed (4-week total)
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -256,6 +241,29 @@ export default function Home() {
                         colorClass={getAccuracyBgColor(market.vg_vhs_accuracy)}
                         delay={index * 50}
                       />
+                      
+                      {/* Weekly Sampling Average Box */}
+                      <div className={`mt-4 p-3 rounded-lg border ${
+                        market.avg_sample < 100 
+                          ? 'bg-amber-50 border-amber-200 dark:bg-amber-950/20 dark:border-amber-800' 
+                          : 'bg-muted/50 border-border'
+                      }`}>
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="text-xs text-muted-foreground uppercase tracking-wide mb-1">Weekly Avg Sampling</div>
+                            <div className="text-2xl font-bold font-mono">{market.avg_sample}</div>
+                          </div>
+                          {market.avg_sample < 100 && (
+                            <AlertCircle className="h-5 w-5 text-amber-500" />
+                          )}
+                        </div>
+                        {market.avg_sample < 100 && (
+                          <div className="text-xs text-amber-700 dark:text-amber-400 mt-2">
+                            ⚠️ Low sample may affect reliability
+                          </div>
+                        )}
+                      </div>
+
                       <div className="flex justify-between mt-3 text-sm text-muted-foreground">
                         <span>{market.incorrect_count} errors</span>
                         <span className="font-medium">Click for details →</span>
