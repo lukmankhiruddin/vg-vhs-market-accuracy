@@ -104,7 +104,7 @@ export function TopCriticalIssues() {
           <div>
             <h3 className="font-semibold text-sm mb-1">Priority Action Required</h3>
             <p className="text-sm text-muted-foreground">
-              These 3 high-severity policy groups represent 69 errors (59.5% of EXTREMELY_HIGH/VERY_HIGH errors, 9.9% of total). Critical for user safety and platform integrity.
+              These 3 policy groups account for 69 critical errors out of 695 total (10%). Addressing these will improve accuracy by +1.5pp.
             </p>
           </div>
         </div>
