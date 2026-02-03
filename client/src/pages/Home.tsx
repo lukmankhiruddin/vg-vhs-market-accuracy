@@ -91,12 +91,17 @@ export default function Home() {
         <div className="container py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">VG+VHS Market Accuracy</h1>
-              <p className="text-muted-foreground mt-1">January 2026 Executive Summary</p>
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-3xl font-bold tracking-tight">VG+VHS Market Accuracy</h1>
+                <Badge variant="secondary" className="text-xs">
+                  Melissa Rose's QER Team
+                </Badge>
+              </div>
+              <p className="text-muted-foreground">4-Week Performance Review • January 2026</p>
             </div>
             <div className="flex items-center gap-3">
               <Badge variant="outline" className="text-sm px-4 py-2">
-                Period: Jan 23-29, 2026
+                Period: Jan 2-29, 2026
               </Badge>
               <Button 
                 variant="outline" 
@@ -401,12 +406,27 @@ export default function Home() {
       <footer className="border-t border-border py-8 bg-card">
         <div className="container">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">
-              VG+VHS Market Accuracy Dashboard • January 2026
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Interactive Executive Presentation
-            </p>
+            <div>
+              <p className="text-sm text-muted-foreground mb-1">
+                VG+VHS Market Accuracy Dashboard • January 2026
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Melissa Rose's QER Team • 4-Week Performance Review
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm text-muted-foreground mb-1">
+                Interactive Executive Presentation
+              </p>
+              <a 
+                href="https://docs.google.com/spreadsheets/d/1s7-cup_Y74jWD8FjGl2gLPwL7XZXUs--Ug4axoUDRbY/edit?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-primary hover:underline flex items-center gap-1 justify-end"
+              >
+                View Source Data →
+              </a>
+            </div>
           </div>
         </div>
       </footer>
