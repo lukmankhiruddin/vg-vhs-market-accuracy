@@ -216,18 +216,18 @@ export default function Home() {
                     }}
                     onClick={() => handleMarketClick(market)}
                   >
-                    <CardHeader className="pb-2">
+                    <CardHeader className="pb-1.5 pt-3">
                       <div className="flex items-center justify-between">
-                        <CardTitle className="text-lg">{market.market}</CardTitle>
+                        <CardTitle className="text-base font-semibold">{market.market}</CardTitle>
                         <Badge 
-                          className={`${getAccuracyBgColor(market.vg_vhs_accuracy)} text-white`}
+                          className={`${getAccuracyBgColor(market.vg_vhs_accuracy)} text-white text-xs px-2 py-0.5`}
                         >
                           {market.vg_vhs_accuracy >= 85 ? 'On Track' : market.vg_vhs_accuracy >= 80 ? 'At Risk' : 'Critical'}
                         </Badge>
                       </div>
                     </CardHeader>
-                    <CardContent className="space-y-3">
-                      <div className={`text-4xl font-bold metric-value ${getAccuracyColor(market.vg_vhs_accuracy)}`}>
+                    <CardContent className="space-y-2.5 pb-3">
+                      <div className={`text-3xl font-bold metric-value ${getAccuracyColor(market.vg_vhs_accuracy)}`}>
                         {market.vg_vhs_accuracy.toFixed(2)}%
                       </div>
                       <AnimatedProgressBar 
@@ -237,30 +237,30 @@ export default function Home() {
                       />
                       
                       {/* Weekly Sampling Average Box */}
-                      <div className={`p-2.5 rounded-lg border ${
+                      <div className={`p-2 rounded-md border ${
                         market.avg_sample < 100 
                           ? 'bg-amber-50 border-amber-200 dark:bg-amber-950/20 dark:border-amber-800' 
                           : 'bg-muted/50 border-border'
                       }`}>
                         <div className="flex items-center justify-between">
                           <div>
-                            <div className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">Weekly Avg Sampling</div>
-                            <div className="text-xl font-bold font-mono">{market.avg_sample}</div>
+                            <div className="text-[10px] text-muted-foreground uppercase tracking-wide mb-0.5">Weekly Avg</div>
+                            <div className="text-lg font-bold font-mono">{market.avg_sample}</div>
                           </div>
                           {market.avg_sample < 100 && (
-                            <AlertCircle className="h-4 w-4 text-amber-500" />
+                            <AlertCircle className="h-3.5 w-3.5 text-amber-500" />
                           )}
                         </div>
                         {market.avg_sample < 100 && (
-                          <div className="text-xs text-amber-700 dark:text-amber-400 mt-1.5">
-                            ⚠️ Low sample may affect reliability
+                          <div className="text-[10px] text-amber-700 dark:text-amber-400 mt-1">
+                            ⚠️ Low sample
                           </div>
                         )}
                       </div>
 
-                      <div className="flex justify-between text-sm text-muted-foreground">
+                      <div className="flex justify-between text-xs text-muted-foreground">
                         <span>{market.incorrect_count} errors</span>
-                        <span className="font-medium">Click for details →</span>
+                        <span className="font-medium">Details →</span>
                       </div>
                     </CardContent>
                   </Card>
