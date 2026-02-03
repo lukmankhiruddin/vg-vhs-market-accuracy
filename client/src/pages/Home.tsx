@@ -68,8 +68,10 @@ export default function Home() {
   };
 
   const handleExportReport = () => {
-    toast.success("Report export initiated", {
-      description: "Your detailed PDF report will be ready shortly.",
+    // Use browser's print dialog to save as PDF
+    window.print();
+    toast.success("Print dialog opened", {
+      description: "Select 'Save as PDF' as your printer destination.",
     });
   };
 
@@ -94,17 +96,9 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-3xl font-bold tracking-tight">VG+VHS Market Accuracy</h1>
-              </div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm text-muted-foreground">Created & Maintained by</span>
-                <a 
-                  href="https://fb.workplace.com/profile.php?id=61576344549587"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-primary hover:underline"
-                >
-                  Lukman Khiruddin QER
-                </a>
+                <Badge variant="secondary" className="text-xs">
+                  Melissa Rose's QER Team
+                </Badge>
               </div>
               <div className="flex items-center gap-3">
                 <p className="text-muted-foreground">4-Week Performance Review • January 2026</p>
@@ -119,7 +113,18 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col items-end gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">Created & Maintained by</span>
+                <a 
+                  href="https://fb.workplace.com/profile.php?id=61576344549587"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-medium text-primary hover:underline"
+                >
+                  Lukman Khiruddin QER
+                </a>
+              </div>
               <Badge variant="outline" className="text-sm px-4 py-2">
                 Period: Jan 2-29, 2026
               </Badge>
