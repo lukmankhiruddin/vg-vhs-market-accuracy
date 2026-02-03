@@ -7,7 +7,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, TrendingDown, Target, Users, BarChart3, Download } from "lucide-react";
+import { AlertTriangle, TrendingDown, Target, Users, BarChart3, Download, AlertCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AnimatedMetricCard, AnimatedProgressBar } from "@/components/AnimatedMetricCard";
@@ -187,6 +187,15 @@ export default function Home() {
               <p className="text-muted-foreground max-w-3xl">
                 Click on any market card to view detailed analysis, error breakdown, and recommended actions
               </p>
+              <div className="mt-3 flex items-center gap-2 text-sm">
+                <span className="font-medium">4-Week Avg Sampling:</span>
+                <Badge variant="outline" className="font-mono">422 samples/market</Badge>
+                <span className="text-muted-foreground">•</span>
+                <div className="flex items-center gap-1 text-muted-foreground">
+                  <AlertCircle className="h-4 w-4" />
+                  <span>Low sample markets may have less reliable accuracy</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -216,14 +225,27 @@ export default function Home() {
                   >
                     <CardHeader className="pb-3">
                       <div className="flex items-center justify-between">
-                        <CardTitle className="text-lg">{market.market}</CardTitle>
+                        <div className="flex items-center gap-2">
+                          <CardTitle className="text-lg">{market.market}</CardTitle>
+                          {market.sample_count < 100 && (
+                            <div className="relative group">
+                              <AlertCircle className="h-4 w-4 text-amber-500" />
+                              <div className="absolute left-0 top-6 w-48 p-2 bg-popover border border-border rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 text-xs">
+                                Low sample size ({market.sample_count} avg) may affect accuracy reliability
+                              </div>
+                            </div>
+                          )}
+                        </div>
                         <Badge 
                           className={`${getAccuracyBgColor(market.vg_vhs_accuracy)} text-white`}
                         >
                           {market.vg_vhs_accuracy >= 85 ? 'On Track' : market.vg_vhs_accuracy >= 80 ? 'At Risk' : 'Critical'}
                         </Badge>
                       </div>
-                      <CardDescription>{market.sample_count} samples analyzed</CardDescription>
+                      <CardDescription>
+                        {market.sample_count} samples analyzed
+                        {market.sample_count < 100 && <span className="text-amber-600 ml-1">(Low Sample)</span>}
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className={`text-4xl font-bold metric-value mb-3 ${getAccuracyColor(market.vg_vhs_accuracy)}`}>
