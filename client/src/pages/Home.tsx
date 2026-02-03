@@ -193,7 +193,7 @@ export default function Home() {
             <AnimatedMetricCard
               title="Biggest Improver"
               value={hasData && biggestImprover ? biggestImprover.market : "N/A"}
-              subtitle={hasData && biggestImprover ? `${biggestImproverGain >= 0 ? '+' : ''}${biggestImproverGain.toFixed(2)}pp (W1→W4)` : "Pending data"}
+              subtitle={hasData && biggestImprover ? `${biggestImproverGain >= 0 ? '+' : ''}${biggestImproverGain.toFixed(2)}pp (W1→W4) • Strongest momentum` : "Pending data"}
               colorClass={hasData ? "text-chart-3" : "text-muted-foreground"}
               delay={200}
               icon={TrendingDown}
