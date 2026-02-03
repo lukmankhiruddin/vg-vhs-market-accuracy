@@ -16,6 +16,7 @@ import {
   VendorPerformanceChart
 } from "@/components/InteractiveCharts";
 import { MarketDetailModal } from "@/components/MarketDetailModal";
+import { ErrorFlowSankey } from "@/components/ErrorFlowSankey";
 import { toast } from "sonner";
 
 interface MarketData {
@@ -256,60 +257,11 @@ export default function Home() {
           >
             <h2 className="text-2xl font-bold mb-2">Error Distribution Analysis</h2>
             <p className="text-muted-foreground">
-              Breakdown of 695 misclassifications by category (4-week total)
+              Interactive flow showing how 695 errors distribute from categories to markets (4-week total)
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {[
-              { name: 'NON_VIOLATING', value: 202, percentage: 29.1, color: 'oklch(0.65 0.24 27)', description: 'False positives on safe content' },
-              { name: 'ADULT_SEXUAL_SOLICITATION', value: 80, percentage: 11.5, color: 'oklch(0.55 0.15 30)', description: 'Inappropriate solicitation' },
-              { name: 'DANGEROUS_INDIVIDUALS_AND_ORGS', value: 59, percentage: 8.5, color: 'oklch(0.55 0.12 260)', description: 'Extremist content identification' },
-              { name: 'PORN', value: 43, percentage: 6.2, color: 'oklch(0.65 0.12 340)', description: 'Adult content misclassification' },
-              { name: 'FRAUD_AND_DECEPTION', value: 40, percentage: 5.8, color: 'oklch(0.75 0.15 60)', description: 'Scam and misleading content' },
-              { name: 'OTHERS', value: 271, percentage: 39.0, color: 'oklch(0.70 0.08 220)', description: 'Other violation categories combined' },
-            ].map((category, index) => (
-              <motion.div
-                key={category.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
-              >
-                <Card className="border-t-4 h-full" style={{ borderTopColor: category.color }}>
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-                      {category.name.replace(/_/g, ' ')}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div>
-                        <div className="text-5xl font-bold metric-value mb-1" style={{ color: category.color }}>
-                          {category.value}
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          {category.percentage.toFixed(1)}% of total errors
-                        </p>
-                      </div>
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <motion.div
-                          className="h-full rounded-full"
-                          style={{ backgroundColor: category.color }}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${category.percentage}%` }}
-                          transition={{ duration: 1, delay: index * 0.1 }}
-                        />
-                      </div>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        {category.description}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+          <ErrorFlowSankey />
         </div>
       </section>
 
