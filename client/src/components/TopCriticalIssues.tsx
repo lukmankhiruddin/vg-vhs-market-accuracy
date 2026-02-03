@@ -122,7 +122,7 @@ export function TopCriticalIssues() {
           <div>
             <h3 className="font-semibold text-sm mb-1">Priority Action Required</h3>
             <p className="text-sm text-muted-foreground">
-              These 5 high-severity policy areas represent 72 errors (62.1% of EXTREMELY_HIGH/VERY_HIGH errors, 10.4% of total). Critical for user safety and platform integrity.
+              These 5 high-severity policy groups represent 102 errors (87.9% of EXTREMELY_HIGH/VERY_HIGH errors, 14.7% of total). Critical for user safety and platform integrity.
             </p>
           </div>
         </div>
