@@ -8,7 +8,7 @@ interface CriticalIssue {
   market: string;
   errorCategory: string;
   errorCount: number;
-  impact: "High" | "Medium" | "Critical";
+  impact: "CRITICAL - EXTREMELY HIGH" | "CRITICAL - VERY HIGH" | "HIGH - VERY HIGH" | "Critical" | "High" | "Medium";
   recommendation: string;
   icon: React.ReactNode;
 }
@@ -18,73 +18,85 @@ export function TopCriticalIssues() {
     {
       rank: 1,
       market: "DOI_SUPPORT_TERRORISM",
-      errorCategory: "EXTREMELY_HIGH/VERY_HIGH Severity",
+      errorCategory: "Terrorism Support",
       errorCount: 23,
-      impact: "Critical",
+      impact: "CRITICAL - EXTREMELY HIGH",
       recommendation: "URGENT: Standardize interpretation of 'support' vs 'mention' across markets. Implement mandatory escalation for terrorism-related content. Highest errors in ARABIC (6), PAKISTAN_OTHERS (4), INDONESIAN (4).",
       icon: <AlertTriangle className="h-5 w-5" />
     },
     {
       rank: 2,
       market: "PROSTITUTION",
-      errorCategory: "VERY_HIGH Severity",
+      errorCategory: "Commercial Sexual Exploitation",
       errorCount: 19,
-      impact: "Critical",
+      impact: "CRITICAL - VERY HIGH",
       recommendation: "Critical misclassification of commercial sexual exploitation. Update policy examples and implement peer review for all prostitution-related cases. Focus on ARABIC (5), INDONESIAN (3), PAKISTAN_OTHERS (3).",
       icon: <Users className="h-5 w-5" />
     },
     {
       rank: 3,
       market: "CHILD_SEXUALIZATION",
-      errorCategory: "EXTREMELY_HIGH Severity",
+      errorCategory: "Child Safety Violation",
       errorCount: 13,
-      impact: "Critical",
+      impact: "CRITICAL - EXTREMELY HIGH",
       recommendation: "CRITICAL: Child safety violation. Immediate retraining required on child sexualization identification. Zero-tolerance policy enforcement. Concentrated in ARABIC (4), PAKISTAN_OTHERS (3), INDONESIAN (2).",
       icon: <Target className="h-5 w-5" />
     },
     {
       rank: 4,
       market: "FRAUD_FINANCIAL_INSTRUMENT",
-      errorCategory: "VERY_HIGH Severity",
+      errorCategory: "Financial Fraud",
       errorCount: 9,
-      impact: "High",
+      impact: "HIGH - VERY HIGH",
       recommendation: "Enhance training on financial fraud detection. Update guidelines with current scam patterns and regional variations. Primary issues in ARABIC (3), MAGHREB (2), RUSSIAN (2).",
       icon: <FileText className="h-5 w-5" />
     },
     {
       rank: 5,
       market: "ADULT_NCST",
-      errorCategory: "VERY_HIGH Severity",
+      errorCategory: "Non-Consensual Content",
       errorCount: 8,
-      impact: "High",
+      impact: "HIGH - VERY HIGH",
       recommendation: "Clarify non-consensual sexual content policy boundaries. Implement sensitivity training and trauma-informed review protocols. Errors spread across ARABIC (2), INDONESIAN (2), MALAY (2).",
       icon: <TrendingUp className="h-5 w-5" />
     }
   ];
 
   const getImpactColor = (impact: string) => {
+    if (impact.includes("CRITICAL") || impact.includes("EXTREMELY HIGH")) {
+      return "bg-red-600 dark:bg-red-700 text-white hover:bg-red-700 animate-pulse";
+    }
+    if (impact.includes("HIGH")) {
+      return "bg-orange-600 dark:bg-orange-700 text-white hover:bg-orange-700";
+    }
     switch (impact) {
       case "Critical":
-        return "bg-red-500 text-white";
+        return "bg-red-600 dark:bg-red-700 text-white hover:bg-red-700";
       case "High":
-        return "bg-orange-500 text-white";
+        return "bg-orange-600 dark:bg-orange-700 text-white hover:bg-orange-700";
       case "Medium":
-        return "bg-amber-500 text-white";
+        return "bg-yellow-600 dark:bg-yellow-700 text-white hover:bg-yellow-700";
       default:
-        return "bg-gray-500 text-white";
+        return "bg-gray-600 dark:bg-gray-700 text-white hover:bg-gray-700";
     }
   };
 
   const getImpactBorderColor = (impact: string) => {
+    if (impact.includes("CRITICAL") || impact.includes("EXTREMELY HIGH")) {
+      return "border-t-red-600";
+    }
+    if (impact.includes("HIGH")) {
+      return "border-t-orange-600";
+    }
     switch (impact) {
       case "Critical":
-        return "border-l-red-500";
+        return "border-t-red-600";
       case "High":
-        return "border-l-orange-500";
+        return "border-t-orange-600";
       case "Medium":
-        return "border-l-amber-500";
+        return "border-t-yellow-600";
       default:
-        return "border-l-gray-500";
+        return "border-t-gray-500";
     }
   };
 
