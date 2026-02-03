@@ -3,19 +3,14 @@
  * Interactive drill-down view for individual market performance
  */
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertTriangle, CheckCircle2, TrendingDown, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 
 interface MarketData {
   market: string;
@@ -24,6 +19,7 @@ interface MarketData {
   vg_vhs_accuracy: number;
   sample_count: number;
   incorrect_count: number;
+  weekly_trend?: number[];
 }
 
 interface MarketDetailModalProps {
@@ -69,6 +65,58 @@ export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModal
             </Badge>
           </div>
         </DialogHeader>
+
+        {/* 4-Week Trend Sparkline */}
+        {market.weekly_trend && market.weekly_trend.length === 4 && (
+          <Card className="mt-4">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base">4-Week Performance Trend</CardTitle>
+              <CardDescription>
+                Weekly accuracy progression • {market.weekly_trend[3] > market.weekly_trend[0] ? '📈 Improving' : market.weekly_trend[3] < market.weekly_trend[0] ? '📉 Declining' : '➡️ Stable'}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={120}>
+                <LineChart data={[
+                  { week: 'W1', accuracy: market.weekly_trend[0] },
+                  { week: 'W2', accuracy: market.weekly_trend[1] },
+                  { week: 'W3', accuracy: market.weekly_trend[2] },
+                  { week: 'W4', accuracy: market.weekly_trend[3] },
+                ]}>
+                  <XAxis dataKey="week" stroke="oklch(0.552 0.016 285.938)" fontSize={12} />
+                  <YAxis domain={[60, 100]} stroke="oklch(0.552 0.016 285.938)" fontSize={12} />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'oklch(1 0 0)', 
+                      border: '1px solid oklch(0.92 0.004 286.32)',
+                      borderRadius: '8px'
+                    }}
+                    formatter={(value: number) => [`${value.toFixed(2)}%`, 'Accuracy']}
+                  />
+                  <ReferenceLine y={85} stroke="oklch(0.65 0.24 142)" strokeDasharray="3 3" label={{ value: 'Target 85%', position: 'right', fontSize: 11 }} />
+                  <Line 
+                    type="monotone" 
+                    dataKey="accuracy" 
+                    stroke="oklch(0.623 0.214 259.815)" 
+                    strokeWidth={3}
+                    dot={{ fill: 'oklch(0.623 0.214 259.815)', r: 5 }}
+                    activeDot={{ r: 7 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+              <div className="grid grid-cols-4 gap-2 mt-4">
+                {market.weekly_trend.map((acc, idx) => (
+                  <div key={idx} className="text-center p-2 bg-muted rounded">
+                    <div className="text-xs text-muted-foreground mb-1">Week {idx + 1}</div>
+                    <div className={`text-lg font-bold ${ acc >= 85 ? 'text-chart-3' : acc >= 80 ? 'text-chart-2' : 'text-chart-1'}`}>
+                      {acc.toFixed(1)}%
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         <Tabs defaultValue="overview" className="mt-6">
           <TabsList className="grid w-full grid-cols-3">
