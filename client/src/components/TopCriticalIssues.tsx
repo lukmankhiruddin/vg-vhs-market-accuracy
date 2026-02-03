@@ -63,9 +63,15 @@ export function TopCriticalIssues() {
   ];
 
   const getImpactColor = (impact: string) => {
-    if (impact.includes("CRITICAL") || impact.includes("EXTREMELY HIGH")) {
-      return "bg-red-600 dark:bg-red-700 text-white hover:bg-red-700 animate-pulse";
+    // EXTREMELY HIGH = Most urgent (red with pulse)
+    if (impact.includes("EXTREMELY HIGH")) {
+      return "bg-red-700 dark:bg-red-800 text-white hover:bg-red-800 animate-pulse font-bold";
     }
+    // VERY HIGH = Second most urgent (red, no pulse)
+    if (impact.includes("VERY HIGH")) {
+      return "bg-red-600 dark:bg-red-700 text-white hover:bg-red-700 font-semibold";
+    }
+    // HIGH = Third level (orange)
     if (impact.includes("HIGH")) {
       return "bg-orange-600 dark:bg-orange-700 text-white hover:bg-orange-700";
     }
@@ -82,9 +88,15 @@ export function TopCriticalIssues() {
   };
 
   const getImpactBorderColor = (impact: string) => {
-    if (impact.includes("CRITICAL") || impact.includes("EXTREMELY HIGH")) {
-      return "border-t-red-600";
+    // EXTREMELY HIGH = Darkest red border
+    if (impact.includes("EXTREMELY HIGH")) {
+      return "border-t-red-700 border-t-4";
     }
+    // VERY HIGH = Red border
+    if (impact.includes("VERY HIGH")) {
+      return "border-t-red-600 border-t-4";
+    }
+    // HIGH = Orange border
     if (impact.includes("HIGH")) {
       return "border-t-orange-600";
     }
