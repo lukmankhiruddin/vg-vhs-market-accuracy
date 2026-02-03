@@ -137,7 +137,7 @@ export default function Home() {
         }}
       >
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
             <AnimatedMetricCard
               title="Overall Accuracy"
               value={overallAccuracy}
@@ -149,19 +149,27 @@ export default function Home() {
               icon={BarChart3}
             />
             <AnimatedMetricCard
-              title="Total Samples"
-              value={totalSamples}
-              subtitle="Across 11 markets"
-              colorClass="text-foreground"
+              title="Best Performer"
+              value="PAKISTAN_OTHERS"
+              subtitle="93.94% accuracy"
+              colorClass="text-chart-3"
               delay={200}
-              icon={Users}
+              icon={Target}
+            />
+            <AnimatedMetricCard
+              title="Biggest Improver"
+              value="RUSSIAN"
+              subtitle="+17.94pp (W1→W4)"
+              colorClass="text-chart-3"
+              delay={400}
+              icon={TrendingDown}
             />
             <AnimatedMetricCard
               title="Target Achievement"
               value={`${marketsOnTrack}/${totalMarkets}`}
               subtitle="Markets on track (≥85%)"
               colorClass="text-chart-3"
-              delay={400}
+              delay={500}
               icon={Target}
             />
             <AnimatedMetricCard
