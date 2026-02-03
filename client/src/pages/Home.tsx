@@ -248,12 +248,12 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {[
-              { name: 'NON_VIOLATING', value: 248, percentage: 35.7, color: 'oklch(0.65 0.24 27)', description: 'False positives on safe content' },
-              { name: 'FRAUD_AND_DECEPTION', value: 70, percentage: 10.0, color: 'oklch(0.75 0.15 60)', description: 'Scam and misleading content' },
-              { name: 'ADULT_SEXUAL_SOLICITATION', value: 65, percentage: 9.3, color: 'oklch(0.55 0.15 30)', description: 'Inappropriate solicitation' },
-              { name: 'PORN', value: 55, percentage: 7.9, color: 'oklch(0.65 0.12 340)', description: 'Adult content misclassification' },
-              { name: 'DANGEROUS_INDIVIDUALS', value: 49, percentage: 7.1, color: 'oklch(0.55 0.12 260)', description: 'Extremist content identification' },
-              { name: 'OTHERS', value: 208, percentage: 30.0, color: 'oklch(0.70 0.08 220)', description: 'Miscellaneous categories' },
+              { name: 'NON_VIOLATING', value: 202, percentage: 29.1, color: 'oklch(0.65 0.24 27)', description: 'False positives on safe content' },
+              { name: 'ADULT_SEXUAL_SOLICITATION', value: 80, percentage: 11.5, color: 'oklch(0.55 0.15 30)', description: 'Inappropriate solicitation' },
+              { name: 'DANGEROUS_INDIVIDUALS_AND_ORGS', value: 59, percentage: 8.5, color: 'oklch(0.55 0.12 260)', description: 'Extremist content identification' },
+              { name: 'PORN', value: 43, percentage: 6.2, color: 'oklch(0.65 0.12 340)', description: 'Adult content misclassification' },
+              { name: 'FRAUD_AND_DECEPTION', value: 40, percentage: 5.8, color: 'oklch(0.75 0.15 60)', description: 'Scam and misleading content' },
+              { name: 'OTHERS', value: 271, percentage: 39.0, color: 'oklch(0.70 0.08 220)', description: 'Other violation categories combined' },
             ].map((category, index) => (
               <motion.div
                 key={category.name}
@@ -326,9 +326,9 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <div className="text-3xl font-bold metric-value text-chart-1">248</div>
+                  <div className="text-3xl font-bold metric-value text-chart-1">202</div>
                   <p className="text-sm text-muted-foreground">
-                    <strong>NON_VIOLATING</strong> misclassifications represent 35.7% of all errors (4-week)
+                    <strong>NON_VIOLATING</strong> misclassifications represent 29.1% of all errors (4-week)
                   </p>
                 </div>
               </CardContent>
@@ -340,9 +340,9 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <div className="text-3xl font-bold metric-value text-chart-2">85.88%</div>
+                  <div className="text-3xl font-bold metric-value text-chart-2">86.69%</div>
                   <p className="text-sm text-muted-foreground">
-                    <strong>Accenture_NA</strong> accuracy indicates need for targeted training
+                    <strong>Accenture_NA</strong> leads with 1,623 samples across 4 weeks
                   </p>
                 </div>
               </CardContent>
@@ -354,9 +354,9 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <div className="text-3xl font-bold metric-value">Stable</div>
+                  <div className="text-3xl font-bold metric-value text-chart-3">Improving</div>
                   <p className="text-sm text-muted-foreground">
-                    Performance consistent across weeks, but below target
+                    Accuracy increased from 83.13% (W1) to 87.13% (W4)
                   </p>
                 </div>
               </CardContent>

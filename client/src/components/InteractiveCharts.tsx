@@ -288,9 +288,9 @@ export function SampleVolumeAccuracyChart({ data }: { data: MarketData[] }) {
 // Trend Line Chart (Weekly)
 export function WeeklyTrendChart() {
   const trendData = [
-    { week: 'Week 1 (Jan 2-8)', accuracy: 86.52, samples: 1150, errors: 155 },
-    { week: 'Week 2 (Jan 9-15)', accuracy: 86.83, samples: 1253, errors: 165 },
-    { week: 'Week 3 (Jan 16-22)', accuracy: 87.38, samples: 1149, errors: 145 },
+    { week: 'Week 1 (Jan 2-8)', accuracy: 83.13, samples: 1150, errors: 194 },
+    { week: 'Week 2 (Jan 9-15)', accuracy: 84.92, samples: 1253, errors: 189 },
+    { week: 'Week 3 (Jan 16-22)', accuracy: 85.03, samples: 1149, errors: 172 },
     { week: 'Week 4 (Jan 23-29)', accuracy: 87.13, samples: 1088, errors: 140 },
   ];
 
@@ -327,9 +327,9 @@ export function WeeklyTrendChart() {
 // Vendor Performance Comparison
 export function VendorPerformanceChart() {
   const vendorData = [
-    { vendor: 'Accenture_NA', accuracy: 85.88, samples: 439, errors: 62 },
-    { vendor: 'CPL', accuracy: 87.83, samples: 641, errors: 78 },
-    { vendor: 'Accenture', accuracy: 100.00, samples: 8, errors: 0 },
+    { vendor: 'CPL', accuracy: 84.22, samples: 2757, errors: 435 },
+    { vendor: 'Accenture_NA', accuracy: 86.69, samples: 1623, errors: 216 },
+    { vendor: 'Accenture', accuracy: 83.08, samples: 260, errors: 44 },
   ];
 
   return (
