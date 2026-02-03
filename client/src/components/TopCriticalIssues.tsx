@@ -17,48 +17,30 @@ export function TopCriticalIssues() {
   const criticalIssues: CriticalIssue[] = [
     {
       rank: 1,
-      market: "DOI_SUPPORT_TERRORISM",
-      errorCategory: "Terrorism Support",
-      errorCount: 23,
-      impact: "CRITICAL - EXTREMELY HIGH",
-      recommendation: "ARABIC (6 errors) • PAKISTAN_OTHERS (4) • INDONESIAN (4)",
+      market: "DANGEROUS_INDIVIDUALS_AND_ORGS",
+      errorCategory: "Dangerous Individuals & Organizations",
+      errorCount: 30,
+      impact: "CRITICAL - VERY HIGH",
+      recommendation: "PAKISTAN_OTHERS (10 errors) • ARABIC (9) • MAGHREB (4)",
       icon: <AlertTriangle className="h-5 w-5" />
     },
     {
       rank: 2,
-      market: "PROSTITUTION",
-      errorCategory: "Commercial Sexual Exploitation",
-      errorCount: 19,
-      impact: "CRITICAL - VERY HIGH",
-      recommendation: "ARABIC (5 errors) • INDONESIAN (3) • PAKISTAN_OTHERS (3)",
+      market: "ADULT_SEXUAL_EXPLOITATION",
+      errorCategory: "Adult Sexual Exploitation",
+      errorCount: 20,
+      impact: "CRITICAL - EXTREMELY HIGH",
+      recommendation: "CHINESE_MANDARIN (4 errors) • INDONESIAN (4) • PAKISTAN_OTHERS (4)",
       icon: <Users className="h-5 w-5" />
     },
     {
       rank: 3,
-      market: "CHILD_SEXUALIZATION",
-      errorCategory: "Child Safety Violation",
-      errorCount: 13,
-      impact: "CRITICAL - EXTREMELY HIGH",
-      recommendation: "ARABIC (4 errors) • PAKISTAN_OTHERS (3) • INDONESIAN (2)",
-      icon: <Target className="h-5 w-5" />
-    },
-    {
-      rank: 4,
-      market: "FRAUD_FINANCIAL_INSTRUMENT",
-      errorCategory: "Financial Fraud",
-      errorCount: 9,
-      impact: "HIGH - VERY HIGH",
-      recommendation: "ARABIC (3 errors) • MAGHREB (2) • RUSSIAN (2)",
-      icon: <FileText className="h-5 w-5" />
-    },
-    {
-      rank: 5,
-      market: "ADULT_NCST",
-      errorCategory: "Non-Consensual Content",
-      errorCount: 8,
-      impact: "HIGH - VERY HIGH",
-      recommendation: "ARABIC (2 errors) • INDONESIAN (2) • MALAY (2)",
-      icon: <TrendingUp className="h-5 w-5" />
+      market: "ADULT_SEXUAL_SOLICITATION",
+      errorCategory: "Adult Sexual Solicitation",
+      errorCount: 19,
+      impact: "CRITICAL - VERY HIGH",
+      recommendation: "INDONESIAN (5 errors) • HUNGARIAN (4) • MALAY (3)",
+      icon: <Users className="h-5 w-5" />
     }
   ];
 
@@ -122,7 +104,7 @@ export function TopCriticalIssues() {
           <div>
             <h3 className="font-semibold text-sm mb-1">Priority Action Required</h3>
             <p className="text-sm text-muted-foreground">
-              These 5 high-severity policy groups represent 102 errors (87.9% of EXTREMELY_HIGH/VERY_HIGH errors, 14.7% of total). Critical for user safety and platform integrity.
+              These 3 high-severity policy groups represent 69 errors (59.5% of EXTREMELY_HIGH/VERY_HIGH errors, 9.9% of total). Critical for user safety and platform integrity.
             </p>
           </div>
         </div>
@@ -181,7 +163,7 @@ export function TopCriticalIssues() {
           </div>
           <div className="text-sm">
             <span className="font-semibold">Expected Impact:</span>
-            <span className="text-green-600 dark:text-green-400 ml-2 font-semibold">+1.6pp accuracy improvement (85.02% → 86.57%)</span>
+            <span className="text-green-600 dark:text-green-400 ml-2 font-semibold">+1.5pp accuracy improvement (85.02% → 86.51%)</span>
           </div>
         </div>
       </div>
