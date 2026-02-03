@@ -335,13 +335,13 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Trend Status</CardTitle>
+                <CardTitle className="text-lg">Quick Win Potential</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <div className="text-3xl font-bold metric-value text-chart-3">Improving</div>
+                  <div className="text-3xl font-bold metric-value text-green-600">+1.5pp</div>
                   <p className="text-sm text-muted-foreground">
-                    Accuracy increased from 83.13% (W1) to 87.13% (W4)
+                    Accuracy gain from fixing <strong>Top 3 high-severity policy groups</strong> (69 errors)
                   </p>
                 </div>
               </CardContent>
