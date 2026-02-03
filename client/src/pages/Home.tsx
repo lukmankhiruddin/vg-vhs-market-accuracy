@@ -363,9 +363,9 @@ export default function Home() {
               <Target className="h-6 w-6 text-chart-3" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-2">Strategic Recommendations</h2>
+              <h2 className="text-2xl font-bold mb-2">Path to 90% Accuracy</h2>
               <p className="text-muted-foreground max-w-3xl">
-                Three-pronged approach to achieve 85%+ accuracy target
+                Data-driven roadmap to achieve 90% accuracy (+4.98pp improvement) by end of February 2026
               </p>
             </div>
           </div>
@@ -374,26 +374,38 @@ export default function Home() {
             {[
               {
                 priority: 1,
-                title: "Targeted Training and Recalibration",
+                title: "Eliminate False Positives (NON_VIOLATING Over-Flagging)",
+                impact: "+4.35pp → 89.37%",
+                errors: "202 errors (29.1% of total)",
                 actions: [
-                  "Immediate training for ARABIC, GERMAN, INDONESIAN, and CHINESE_MANDARIN markets",
-                  "Comprehensive NON_VIOLATING content policy review with all vendor partners",
+                  "Deploy targeted training for ARABIC (36 errors), TURKISH (31), INDONESIAN (27) on NON_VIOLATING vs FRAUD_AND_DECEPTION distinction",
+                  "Update policy guidelines with 15+ real case examples from these 202 misclassifications",
+                  "Implement weekly calibration sessions for markets with >15 NON_VIOLATING errors",
+                  "Timeline: 2 weeks | Owner: Policy & Training Team"
                 ]
               },
               {
                 priority: 2,
-                title: "Deep-Dive Analysis into High-Risk Categories",
+                title: "Zero-Tolerance for High-Severity Errors",
+                impact: "+1.5pp → 86.51%",
+                errors: "69 critical errors (EXTREMELY_HIGH/VERY_HIGH)",
                 actions: [
-                  "Analyze FRAUD_AND_DECEPTION, ADULT_SEXUAL_SOLICITATION, and PORN categories",
-                  "Identify specific sub-categories causing reviewer confusion",
+                  "Mandate 100% QA review for DANGEROUS_INDIVIDUALS_AND_ORGS, ADULT_SEXUAL_EXPLOITATION content in PAKISTAN_OTHERS, ARABIC, MAGHREB",
+                  "Establish escalation protocol: All high-severity errors trigger immediate case review within 24 hours",
+                  "Deploy specialized training: Terrorism content (PAKISTAN_OTHERS), Sexual exploitation (ARABIC)",
+                  "Timeline: Immediate (Week 1 Feb) | Owner: QA & Operations Lead"
                 ]
               },
               {
                 priority: 3,
-                title: "Strengthen Quality Assurance",
+                title: "Increase Sample Size for Statistical Reliability",
+                impact: "Improve confidence in accuracy metrics",
+                errors: "3 markets with insufficient sampling",
                 actions: [
-                  "Enhance QA process with granular, actionable feedback",
-                  "Establish frequent feedback loop between policy team and vendors",
+                  "Increase weekly sample targets: HUNGARIAN (72→120), MALAY (59→100), UKRAINIAN (84→120)",
+                  "Rationale: Current samples insufficient for 95% confidence interval (need 100+ for statistical reliability)",
+                  "Prioritize HUNGARIAN: 88.15% accuracy may be inflated due to low sample size (n=72)",
+                  "Timeline: 2 weeks | Owner: Sampling & Operations Team"
                 ]
               }
             ].map((rec, index) => (
@@ -409,8 +421,12 @@ export default function Home() {
                       <Badge className="bg-primary text-primary-foreground">
                         Priority {rec.priority}
                       </Badge>
+                      <Badge variant="outline" className="text-green-600 border-green-600">
+                        {rec.impact}
+                      </Badge>
                     </div>
                     <CardTitle className="text-lg">{rec.title}</CardTitle>
+                    <p className="text-sm text-muted-foreground mt-1">{rec.errors}</p>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3 text-sm">
