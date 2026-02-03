@@ -182,7 +182,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <AnimatedMetricCard
               title="Overall Accuracy"
-              value={hasData ? overallAccuracy : 0}
+              value={hasData ? overallAccuracy : "N/A"}
               suffix={hasData ? "%" : ""}
               subtitle={hasData ? `${overallAccuracy >= targetAccuracy ? '✓' : '↑'} ${Math.abs(overallAccuracy - targetAccuracy).toFixed(2)}pp ${overallAccuracy >= targetAccuracy ? 'above' : 'to'} target (${targetAccuracy}%)` : "Pending data"}
               colorClass={hasData ? getAccuracyColor(overallAccuracy) : "text-muted-foreground"}
