@@ -94,9 +94,17 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-3xl font-bold tracking-tight">VG+VHS Market Accuracy</h1>
-                <Badge variant="secondary" className="text-xs">
-                  Melissa Rose's QER Team
-                </Badge>
+              </div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-sm text-muted-foreground">Created & Maintained by</span>
+                <a 
+                  href="https://fb.workplace.com/profile.php?id=61576344549587"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-primary hover:underline"
+                >
+                  Lukman Khiruddin QER
+                </a>
               </div>
               <div className="flex items-center gap-3">
                 <p className="text-muted-foreground">4-Week Performance Review • January 2026</p>
@@ -438,35 +446,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t border-border py-8 bg-card">
-        <div className="container">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-muted-foreground mb-1">
-                VG+VHS Market Accuracy Dashboard • January 2026
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Melissa Rose's QER Team • 4-Week Performance Review
-              </p>
-            </div>
-            <div className="text-right">
-              <p className="text-sm text-muted-foreground mb-1">
-                Interactive Executive Presentation
-              </p>
-              <a 
-                href="https://docs.google.com/spreadsheets/d/1s7-cup_Y74jWD8FjGl2gLPwL7XZXUs--Ug4axoUDRbY/edit?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-primary hover:underline flex items-center gap-1 justify-end"
-              >
-                View Source Data →
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
 
       {/* Market Detail Modal */}
       <MarketDetailModal 
