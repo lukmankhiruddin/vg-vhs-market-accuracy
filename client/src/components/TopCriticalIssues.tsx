@@ -21,7 +21,7 @@ export function TopCriticalIssues() {
       errorCategory: "Terrorism Support",
       errorCount: 23,
       impact: "CRITICAL - EXTREMELY HIGH",
-      recommendation: "URGENT: Standardize interpretation of 'support' vs 'mention' across markets. Implement mandatory escalation for terrorism-related content. Highest errors in ARABIC (6), PAKISTAN_OTHERS (4), INDONESIAN (4).",
+      recommendation: "ARABIC (6 errors) • PAKISTAN_OTHERS (4) • INDONESIAN (4)",
       icon: <AlertTriangle className="h-5 w-5" />
     },
     {
@@ -30,7 +30,7 @@ export function TopCriticalIssues() {
       errorCategory: "Commercial Sexual Exploitation",
       errorCount: 19,
       impact: "CRITICAL - VERY HIGH",
-      recommendation: "Critical misclassification of commercial sexual exploitation. Update policy examples and implement peer review for all prostitution-related cases. Focus on ARABIC (5), INDONESIAN (3), PAKISTAN_OTHERS (3).",
+      recommendation: "ARABIC (5 errors) • INDONESIAN (3) • PAKISTAN_OTHERS (3)",
       icon: <Users className="h-5 w-5" />
     },
     {
@@ -39,7 +39,7 @@ export function TopCriticalIssues() {
       errorCategory: "Child Safety Violation",
       errorCount: 13,
       impact: "CRITICAL - EXTREMELY HIGH",
-      recommendation: "CRITICAL: Child safety violation. Immediate retraining required on child sexualization identification. Zero-tolerance policy enforcement. Concentrated in ARABIC (4), PAKISTAN_OTHERS (3), INDONESIAN (2).",
+      recommendation: "ARABIC (4 errors) • PAKISTAN_OTHERS (3) • INDONESIAN (2)",
       icon: <Target className="h-5 w-5" />
     },
     {
@@ -48,7 +48,7 @@ export function TopCriticalIssues() {
       errorCategory: "Financial Fraud",
       errorCount: 9,
       impact: "HIGH - VERY HIGH",
-      recommendation: "Enhance training on financial fraud detection. Update guidelines with current scam patterns and regional variations. Primary issues in ARABIC (3), MAGHREB (2), RUSSIAN (2).",
+      recommendation: "ARABIC (3 errors) • MAGHREB (2) • RUSSIAN (2)",
       icon: <FileText className="h-5 w-5" />
     },
     {
@@ -57,7 +57,7 @@ export function TopCriticalIssues() {
       errorCategory: "Non-Consensual Content",
       errorCount: 8,
       impact: "HIGH - VERY HIGH",
-      recommendation: "Clarify non-consensual sexual content policy boundaries. Implement sensitivity training and trauma-informed review protocols. Errors spread across ARABIC (2), INDONESIAN (2), MALAY (2).",
+      recommendation: "ARABIC (2 errors) • INDONESIAN (2) • MALAY (2)",
       icon: <TrendingUp className="h-5 w-5" />
     }
   ];
