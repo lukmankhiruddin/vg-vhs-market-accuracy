@@ -7,7 +7,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, TrendingDown, Target, Users, BarChart3, Download, AlertCircle } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AlertTriangle, TrendingDown, Target, Users, BarChart3, AlertCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AnimatedMetricCard, AnimatedProgressBar } from "@/components/AnimatedMetricCard";
@@ -31,33 +32,56 @@ interface MarketData {
 }
 
 export default function Home() {
+  const [selectedPeriod, setSelectedPeriod] = useState<string>('jan2026');
   const [marketData, setMarketData] = useState<MarketData[]>([]);
   const [selectedMarket, setSelectedMarket] = useState<MarketData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hoveredMarket, setHoveredMarket] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Data from 4-Week VG+VHS+ Avg (AUTO-POPULATED sheet)
-    const data: MarketData[] = [
-      { market: "ARABIC", vg_accuracy: 73.95, vhs_accuracy: 73.95, vg_vhs_accuracy: 73.95, sample_count: 476, incorrect_count: 123, weekly_trend: [72.36, 69.47, 76.69, 78.65], avg_sample: 119 },
-      { market: "CHINESE_MANDARIN", vg_accuracy: 85.40, vhs_accuracy: 85.40, vg_vhs_accuracy: 85.40, sample_count: 459, incorrect_count: 66, weekly_trend: [89.68, 85.09, 81.31, 84.82], avg_sample: 115 },
-      { market: "GERMAN", vg_accuracy: 83.17, vhs_accuracy: 83.17, vg_vhs_accuracy: 83.17, sample_count: 404, incorrect_count: 68, weekly_trend: [86.21, 81.25, 84.11, 81.63], avg_sample: 101 },
-      { market: "HUNGARIAN", vg_accuracy: 88.15, vhs_accuracy: 88.15, vg_vhs_accuracy: 88.15, sample_count: 287, incorrect_count: 34, weekly_trend: [88.14, 92.41, 82.43, 89.33], avg_sample: 72 },
-      { market: "INDONESIAN", vg_accuracy: 86.94, vhs_accuracy: 86.94, vg_vhs_accuracy: 86.94, sample_count: 697, incorrect_count: 91, weekly_trend: [85.81, 86.96, 91.10, 84.66], avg_sample: 174 },
-      { market: "MAGHREB", vg_accuracy: 90.04, vhs_accuracy: 90.04, vg_vhs_accuracy: 90.04, sample_count: 452, incorrect_count: 44, weekly_trend: [87.18, 91.18, 89.80, 92.08], avg_sample: 113 },
-      { market: "MALAY", vg_accuracy: 85.53, vhs_accuracy: 85.53, vg_vhs_accuracy: 85.53, sample_count: 235, incorrect_count: 34, weekly_trend: [87.10, 74.60, 89.47, 92.45], avg_sample: 59 },
-      { market: "PAKISTAN_OTHERS", vg_accuracy: 86.18, vhs_accuracy: 86.18, vg_vhs_accuracy: 86.18, sample_count: 492, incorrect_count: 67, weekly_trend: [80.28, 89.76, 88.46, 87.10], avg_sample: 123 },
-      { market: "RUSSIAN", vg_accuracy: 89.22, vhs_accuracy: 89.22, vg_vhs_accuracy: 89.22, sample_count: 371, incorrect_count: 40, weekly_trend: [90.00, 88.73, 84.68, 93.94], avg_sample: 93 },
-      { market: "TURKISH", vg_accuracy: 81.76, vhs_accuracy: 81.76, vg_vhs_accuracy: 81.76, sample_count: 433, incorrect_count: 78, weekly_trend: [71.88, 85.48, 78.10, 89.81], avg_sample: 108 },
-      { market: "UKRAINIAN", vg_accuracy: 86.53, vhs_accuracy: 86.53, vg_vhs_accuracy: 86.53, sample_count: 334, incorrect_count: 45, weekly_trend: [79.57, 87.64, 91.36, 88.73], avg_sample: 84 },
-    ];
-    setMarketData(data);
-  }, []);
+  // Period definitions
+  const periods = {
+    jan2026: {
+      label: 'January 2026',
+      dateRange: 'Jan 2-29, 2026',
+      overallAccuracy: 85.02,
+      totalSamples: 4640,
+      totalErrors: 695,
+      data: [
+        { market: "ARABIC", vg_accuracy: 73.95, vhs_accuracy: 73.95, vg_vhs_accuracy: 73.95, sample_count: 476, incorrect_count: 123, weekly_trend: [72.36, 69.47, 76.69, 78.65], avg_sample: 119 },
+        { market: "CHINESE_MANDARIN", vg_accuracy: 85.40, vhs_accuracy: 85.40, vg_vhs_accuracy: 85.40, sample_count: 459, incorrect_count: 66, weekly_trend: [89.68, 85.09, 81.31, 84.82], avg_sample: 115 },
+        { market: "GERMAN", vg_accuracy: 83.17, vhs_accuracy: 83.17, vg_vhs_accuracy: 83.17, sample_count: 404, incorrect_count: 68, weekly_trend: [86.21, 81.25, 84.11, 81.63], avg_sample: 101 },
+        { market: "HUNGARIAN", vg_accuracy: 88.15, vhs_accuracy: 88.15, vg_vhs_accuracy: 88.15, sample_count: 287, incorrect_count: 34, weekly_trend: [88.14, 92.41, 82.43, 89.33], avg_sample: 72 },
+        { market: "INDONESIAN", vg_accuracy: 86.94, vhs_accuracy: 86.94, vg_vhs_accuracy: 86.94, sample_count: 697, incorrect_count: 91, weekly_trend: [85.81, 86.96, 91.10, 84.66], avg_sample: 174 },
+        { market: "MAGHREB", vg_accuracy: 90.04, vhs_accuracy: 90.04, vg_vhs_accuracy: 90.04, sample_count: 452, incorrect_count: 44, weekly_trend: [87.18, 91.18, 89.80, 92.08], avg_sample: 113 },
+        { market: "MALAY", vg_accuracy: 85.53, vhs_accuracy: 85.53, vg_vhs_accuracy: 85.53, sample_count: 235, incorrect_count: 34, weekly_trend: [87.10, 74.60, 89.47, 92.45], avg_sample: 59 },
+        { market: "PAKISTAN_OTHERS", vg_accuracy: 86.18, vhs_accuracy: 86.18, vg_vhs_accuracy: 86.18, sample_count: 492, incorrect_count: 67, weekly_trend: [80.28, 89.76, 88.46, 87.10], avg_sample: 123 },
+        { market: "RUSSIAN", vg_accuracy: 89.22, vhs_accuracy: 89.22, vg_vhs_accuracy: 89.22, sample_count: 371, incorrect_count: 40, weekly_trend: [90.00, 88.73, 84.68, 93.94], avg_sample: 93 },
+        { market: "TURKISH", vg_accuracy: 81.76, vhs_accuracy: 81.76, vg_vhs_accuracy: 81.76, sample_count: 433, incorrect_count: 78, weekly_trend: [71.88, 85.48, 78.10, 89.81], avg_sample: 108 },
+        { market: "UKRAINIAN", vg_accuracy: 86.53, vhs_accuracy: 86.53, vg_vhs_accuracy: 86.53, sample_count: 334, incorrect_count: 45, weekly_trend: [79.57, 87.64, 91.36, 88.73], avg_sample: 84 },
+      ]
+    },
+    feb2026: {
+      label: 'February 2026',
+      dateRange: 'Feb 1-28, 2026',
+      overallAccuracy: 0, // To be updated with February data
+      totalSamples: 0,
+      totalErrors: 0,
+      data: [] // To be populated with February data
+    }
+  };
 
-  const overallAccuracy = 85.02;
+  useEffect(() => {
+    // Load data for selected period
+    const currentPeriod = periods[selectedPeriod as keyof typeof periods];
+    setMarketData(currentPeriod.data);
+  }, [selectedPeriod]);
+
+  // Get current period data
+  const currentPeriod = periods[selectedPeriod as keyof typeof periods];
+  const overallAccuracy = currentPeriod.overallAccuracy;
   const targetAccuracy = 85;
-  const totalSamples = 4640;
-  const totalErrors = 695;
+  const totalSamples = currentPeriod.totalSamples;
+  const totalErrors = currentPeriod.totalErrors;
   const marketsAtRisk = marketData.filter(m => m.vg_vhs_accuracy < 85).length;
   const marketsOnTrack = marketData.filter(m => m.vg_vhs_accuracy >= 85).length;
   const totalMarkets = marketData.length;
@@ -65,14 +89,6 @@ export default function Home() {
   const handleMarketClick = (market: MarketData) => {
     setSelectedMarket(market);
     setIsModalOpen(true);
-  };
-
-  const handleExportReport = () => {
-    // Use browser's print dialog to save as PDF
-    window.print();
-    toast.success("Print dialog opened", {
-      description: "Select 'Save as PDF' as your printer destination.",
-    });
   };
 
   const getAccuracyColor = (accuracy: number) => {
@@ -101,7 +117,7 @@ export default function Home() {
                 </Badge>
               </div>
               <div className="flex items-center gap-3">
-                <p className="text-muted-foreground">4-Week Performance Review • January 2026</p>
+                <p className="text-muted-foreground">4-Week Performance Review • {currentPeriod.label}</p>
                 <span className="text-muted-foreground">•</span>
                 <a 
                   href="https://docs.google.com/spreadsheets/d/1s7-cup_Y74jWD8FjGl2gLPwL7XZXUs--Ug4axoUDRbY/edit?usp=sharing"
@@ -125,18 +141,15 @@ export default function Home() {
                   Lukman Khiruddin QER
                 </a>
               </div>
-              <Badge variant="outline" className="text-sm px-4 py-2">
-                Period: Jan 2-29, 2026
-              </Badge>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={handleExportReport}
-                className="gap-2"
-              >
-                <Download className="h-4 w-4" />
-                Export Report
-              </Button>
+              <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
+                <SelectTrigger className="w-[200px]">
+                  <SelectValue placeholder="Select period" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="jan2026">January 2026</SelectItem>
+                  <SelectItem value="feb2026">February 2026</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </div>
