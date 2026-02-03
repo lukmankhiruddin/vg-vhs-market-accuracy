@@ -21,7 +21,7 @@ export function TopCriticalIssues() {
       errorCategory: "Dangerous Individuals & Organizations",
       errorCount: 30,
       impact: "CRITICAL - VERY HIGH",
-      recommendation: "PAKISTAN_OTHERS (10 errors) • ARABIC (9) • MAGHREB (4)",
+      recommendation: "PAKISTAN_OTHERS (10) • ARABIC (9) • MAGHREB (4) • GERMAN (2) • MALAY (2) • TURKISH (1) • INDONESIAN (1) • HUNGARIAN (1)",
       icon: <AlertTriangle className="h-5 w-5" />
     },
     {
@@ -30,7 +30,7 @@ export function TopCriticalIssues() {
       errorCategory: "Adult Sexual Exploitation",
       errorCount: 20,
       impact: "CRITICAL - EXTREMELY HIGH",
-      recommendation: "CHINESE_MANDARIN (4 errors) • INDONESIAN (4) • PAKISTAN_OTHERS (4)",
+      recommendation: "CHINESE_MANDARIN (4) • INDONESIAN (4) • PAKISTAN_OTHERS (4) • MAGHREB (3) • ARABIC (2) • RUSSIAN (1) • MALAY (1) • HUNGARIAN (1)",
       icon: <Users className="h-5 w-5" />
     },
     {
@@ -39,7 +39,7 @@ export function TopCriticalIssues() {
       errorCategory: "Adult Sexual Solicitation",
       errorCount: 19,
       impact: "CRITICAL - VERY HIGH",
-      recommendation: "INDONESIAN (5 errors) • HUNGARIAN (4) • MALAY (3)",
+      recommendation: "INDONESIAN (5) • HUNGARIAN (4) • MALAY (3) • MAGHREB (2) • TURKISH (1) • GERMAN (1) • CHINESE_MANDARIN (1) • PAKISTAN_OTHERS (1) • ARABIC (1)",
       icon: <Users className="h-5 w-5" />
     }
   ];
