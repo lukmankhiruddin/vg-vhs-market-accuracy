@@ -321,13 +321,13 @@ export default function Home() {
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Vendor Insight</CardTitle>
+                <CardTitle className="text-lg">Improvement Rate</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
-                  <div className="text-3xl font-bold metric-value text-chart-2">86.69%</div>
+                  <div className="text-3xl font-bold metric-value text-chart-3">+4.0pp</div>
                   <p className="text-sm text-muted-foreground">
-                    <strong>Accenture_NA</strong> leads with 1,623 samples across 4 weeks
+                    Total improvement from <strong>83.13% (W1)</strong> to <strong>87.13% (W4)</strong>
                   </p>
                 </div>
               </CardContent>
