@@ -10,7 +10,7 @@ import { LucideIcon } from "lucide-react";
 
 interface AnimatedMetricCardProps {
   title: string;
-  value: number;
+  value: number | string;
   suffix?: string;
   subtitle: string;
   icon?: LucideIcon;
@@ -30,15 +30,16 @@ export function AnimatedMetricCard({
   delay = 0,
 }: AnimatedMetricCardProps) {
   const [hasAnimated, setHasAnimated] = useState(false);
+  const isNumericValue = typeof value === 'number';
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => {
     return isPercentage ? latest.toFixed(2) : Math.round(latest).toLocaleString();
   });
 
   useEffect(() => {
-    if (!hasAnimated) {
+    if (!hasAnimated && isNumericValue) {
       const timer = setTimeout(() => {
-        const controls = animate(count, value, {
+        const controls = animate(count, value as number, {
           duration: 1.5,
           ease: "easeOut",
         });
@@ -48,7 +49,7 @@ export function AnimatedMetricCard({
 
       return () => clearTimeout(timer);
     }
-  }, [count, value, hasAnimated, delay]);
+  }, [count, value, hasAnimated, delay, isNumericValue]);
 
   return (
     <motion.div
@@ -79,7 +80,11 @@ export function AnimatedMetricCard({
         </CardHeader>
         <CardContent>
           <div className={`text-5xl font-bold metric-value ${colorClass}`}>
-            <motion.span>{rounded}</motion.span>
+            {isNumericValue ? (
+              <motion.span>{rounded}</motion.span>
+            ) : (
+              <span>{value}</span>
+            )}
             {suffix}
           </div>
           <p className="text-sm text-muted-foreground mt-2">

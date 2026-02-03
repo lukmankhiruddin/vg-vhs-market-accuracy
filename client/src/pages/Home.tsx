@@ -56,6 +56,8 @@ export default function Home() {
   const totalSamples = 4640;
   const totalErrors = 695;
   const marketsAtRisk = marketData.filter(m => m.vg_vhs_accuracy < 85).length;
+  const marketsOnTrack = marketData.filter(m => m.vg_vhs_accuracy >= 85).length;
+  const totalMarkets = marketData.length;
 
   const handleMarketClick = (market: MarketData) => {
     setSelectedMarket(market);
@@ -141,12 +143,12 @@ export default function Home() {
               icon={Users}
             />
             <AnimatedMetricCard
-              title="Misclassifications"
-              value={totalErrors}
-              subtitle="Requiring manual review"
-              colorClass="text-chart-1"
+              title="Target Achievement"
+              value={`${marketsOnTrack}/${totalMarkets}`}
+              subtitle="Markets on track (≥85%)"
+              colorClass="text-chart-3"
               delay={400}
-              icon={AlertTriangle}
+              icon={Target}
             />
             <AnimatedMetricCard
               title="Markets at Risk"
