@@ -186,7 +186,7 @@ export default function Home() {
               suffix={hasData ? "%" : ""}
               subtitle={hasData ? `${overallAccuracy >= targetAccuracy ? '✓' : '↑'} ${Math.abs(overallAccuracy - targetAccuracy).toFixed(2)}pp ${overallAccuracy >= targetAccuracy ? 'above' : 'to'} target (${targetAccuracy}%)` : "Pending data"}
               colorClass={hasData ? getAccuracyColor(overallAccuracy) : "text-muted-foreground"}
-              isPercentage={false}
+              isPercentage={true}
               delay={0}
               icon={BarChart3}
             />
