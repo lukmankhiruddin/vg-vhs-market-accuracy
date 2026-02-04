@@ -428,7 +428,7 @@ export default function Home() {
               {
                 priority: 2,
                 title: "Zero-Tolerance for High-Severity Errors",
-                impact: "+1.5pp → 86.51%",
+                impact: "+1.5pp → 86.63%",
                 errors: "69 critical errors (EXTREMELY_HIGH/VERY_HIGH)",
                 actions: [
                   "Mandate 100% QA review for DANGEROUS_INDIVIDUALS_AND_ORGS, ADULT_SEXUAL_EXPLOITATION content in PAKISTAN_OTHERS, ARABIC, MAGHREB",
