@@ -408,7 +408,7 @@ export default function Home() {
             <div>
               <h2 className="text-2xl font-bold mb-2">Path to 90% Accuracy</h2>
               <p className="text-muted-foreground max-w-3xl">
-                Data-driven roadmap to achieve 90% accuracy (+4.98pp improvement) by end of February 2026
+                Data-driven roadmap to achieve 90% accuracy (+4.87pp improvement) by end of February 2026
               </p>
             </div>
           </div>
@@ -418,7 +418,7 @@ export default function Home() {
               {
                 priority: 1,
                 title: "Eliminate False Positives (NON_VIOLATING Over-Flagging)",
-                impact: "+4.35pp → 89.37%",
+                impact: "+4.35pp → 89.48%",
                 errors: "202 errors (29.1% of total)",
                 actions: [
                   "Deploy targeted training for ARABIC (36 errors), TURKISH (31), INDONESIAN (27) on NON_VIOLATING vs FRAUD_AND_DECEPTION distinction",
@@ -428,7 +428,7 @@ export default function Home() {
               {
                 priority: 2,
                 title: "Zero-Tolerance for High-Severity Errors",
-                impact: "+1.5pp → 86.63%",
+                impact: "+1.49pp → 86.62%",
                 errors: "69 critical errors (EXTREMELY_HIGH/VERY_HIGH)",
                 actions: [
                   "Mandate 100% QA review for DANGEROUS_INDIVIDUALS_AND_ORGS, ADULT_SEXUAL_EXPLOITATION content in PAKISTAN_OTHERS, ARABIC, MAGHREB",
