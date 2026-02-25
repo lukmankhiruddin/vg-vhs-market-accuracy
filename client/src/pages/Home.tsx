@@ -62,11 +62,23 @@ export default function Home() {
     },
     feb2026: {
       label: 'February 2026',
-      dateRange: 'Feb 1-28, 2026',
-      overallAccuracy: 0, // To be updated with February data
-      totalSamples: 0,
-      totalErrors: 0,
-      data: [] // To be populated with February data
+      dateRange: 'Feb 1-19, 2026',
+      overallAccuracy: 86.34,
+      totalSamples: 3140,
+      totalErrors: 429,
+      data: [
+        { market: "ARABIC", vg_accuracy: 80.54, vhs_accuracy: 93.11, vg_vhs_accuracy: 76.65, sample_count: 334, incorrect_count: 78, weekly_trend: [82.57, 73.02, 74.75, 0], avg_sample: 83 },
+        { market: "CHINESE_MANDARIN", vg_accuracy: 85.64, vhs_accuracy: 96.13, vg_vhs_accuracy: 84.53, sample_count: 181, incorrect_count: 28, weekly_trend: [80.81, 100.0, 86.76, 0], avg_sample: 45 },
+        { market: "GERMAN", vg_accuracy: 80.56, vhs_accuracy: 96.62, vg_vhs_accuracy: 79.44, sample_count: 355, incorrect_count: 73, weekly_trend: [81.89, 74.6, 82.35, 0], avg_sample: 88 },
+        { market: "HUNGARIAN", vg_accuracy: 87.43, vhs_accuracy: 97.81, vg_vhs_accuracy: 86.34, sample_count: 183, incorrect_count: 25, weekly_trend: [79.03, 87.95, 94.74, 0], avg_sample: 45 },
+        { market: "INDONESIAN", vg_accuracy: 91.98, vhs_accuracy: 97.74, vg_vhs_accuracy: 90.23, sample_count: 399, incorrect_count: 39, weekly_trend: [90.73, 89.81, 90.11, 0], avg_sample: 99 },
+        { market: "MAGHREB", vg_accuracy: 93.82, vhs_accuracy: 96.91, vg_vhs_accuracy: 91.85, sample_count: 356, incorrect_count: 29, weekly_trend: [91.33, 91.45, 93.26, 0], avg_sample: 89 },
+        { market: "MALAY", vg_accuracy: 88.60, vhs_accuracy: 93.78, vg_vhs_accuracy: 84.97, sample_count: 193, incorrect_count: 29, weekly_trend: [83.82, 84.62, 86.67, 0], avg_sample: 48 },
+        { market: "PAKISTAN_OTHERS", vg_accuracy: 85.76, vhs_accuracy: 92.73, vg_vhs_accuracy: 83.03, sample_count: 330, incorrect_count: 56, weekly_trend: [82.98, 82.79, 83.58, 0], avg_sample: 82 },
+        { market: "RUSSIAN", vg_accuracy: 92.01, vhs_accuracy: 98.72, vg_vhs_accuracy: 91.69, sample_count: 313, incorrect_count: 26, weekly_trend: [97.03, 90.29, 88.07, 0], avg_sample: 78 },
+        { market: "TURKISH", vg_accuracy: 91.19, vhs_accuracy: 97.29, vg_vhs_accuracy: 89.49, sample_count: 295, incorrect_count: 31, weekly_trend: [90.11, 89.29, 89.13, 0], avg_sample: 73 },
+        { market: "UKRAINIAN", vg_accuracy: 93.03, vhs_accuracy: 98.51, vg_vhs_accuracy: 92.54, sample_count: 201, incorrect_count: 15, weekly_trend: [93.15, 90.36, 95.56, 0], avg_sample: 50 },
+      ]
     }
   };
 
