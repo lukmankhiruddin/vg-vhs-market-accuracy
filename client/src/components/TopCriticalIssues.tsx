@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { AlertTriangle, TrendingUp, Users, Target, FileText } from "lucide-react";
+import { AlertTriangle, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -13,84 +13,110 @@ interface CriticalIssue {
   icon: React.ReactNode;
 }
 
-export function TopCriticalIssues() {
-  const criticalIssues: CriticalIssue[] = [
-    {
-      rank: 1,
-      market: "ADULT_SEXUAL_EXPLOITATION",
-      errorCategory: "Adult Sexual Exploitation",
-      errorCount: 20,
-      impact: "EXTREMELY HIGH",
-      recommendation: "CHINESE_MANDARIN (4) • INDONESIAN (4) • PAKISTAN_OTHERS (4) • MAGHREB (3) • ARABIC (2) • RUSSIAN (1) • MALAY (1) • HUNGARIAN (1)",
-      icon: <Users className="h-5 w-5" />
-    },
-    {
-      rank: 2,
-      market: "DANGEROUS_INDIVIDUALS_AND_ORGS",
-      errorCategory: "Dangerous Individuals & Organizations",
-      errorCount: 30,
-      impact: "VERY HIGH",
-      recommendation: "PAKISTAN_OTHERS (10) • ARABIC (9) • MAGHREB (4) • GERMAN (2) • MALAY (2) • TURKISH (1) • INDONESIAN (1) • HUNGARIAN (1)",
-      icon: <AlertTriangle className="h-5 w-5" />
-    },
-    {
-      rank: 3,
-      market: "ADULT_SEXUAL_SOLICITATION",
-      errorCategory: "Adult Sexual Solicitation",
-      errorCount: 19,
-      impact: "VERY HIGH",
-      recommendation: "INDONESIAN (5) • HUNGARIAN (4) • MALAY (3) • MAGHREB (2) • TURKISH (1) • GERMAN (1) • CHINESE_MANDARIN (1) • PAKISTAN_OTHERS (1) • ARABIC (1)",
-      icon: <Users className="h-5 w-5" />
-    }
-  ];
+interface TopCriticalIssuesProps {
+  period?: string;
+}
+
+const janIssues: CriticalIssue[] = [
+  {
+    rank: 1,
+    market: "ADULT_SEXUAL_EXPLOITATION",
+    errorCategory: "Adult Sexual Exploitation",
+    errorCount: 20,
+    impact: "EXTREMELY HIGH",
+    recommendation: "CHINESE_MANDARIN (4) • INDONESIAN (4) • PAKISTAN_OTHERS (4) • MAGHREB (3) • ARABIC (2) • RUSSIAN (1) • MALAY (1) • HUNGARIAN (1)",
+    icon: <Users className="h-5 w-5" />
+  },
+  {
+    rank: 2,
+    market: "DANGEROUS_INDIVIDUALS_AND_ORGS",
+    errorCategory: "Dangerous Individuals & Organizations",
+    errorCount: 30,
+    impact: "VERY HIGH",
+    recommendation: "PAKISTAN_OTHERS (10) • ARABIC (9) • MAGHREB (4) • GERMAN (2) • MALAY (2) • TURKISH (1) • INDONESIAN (1) • HUNGARIAN (1)",
+    icon: <AlertTriangle className="h-5 w-5" />
+  },
+  {
+    rank: 3,
+    market: "ADULT_SEXUAL_SOLICITATION",
+    errorCategory: "Adult Sexual Solicitation",
+    errorCount: 19,
+    impact: "VERY HIGH",
+    recommendation: "INDONESIAN (5) • HUNGARIAN (4) • MALAY (3) • MAGHREB (2) • TURKISH (1) • GERMAN (1) • CHINESE_MANDARIN (1) • PAKISTAN_OTHERS (1) • ARABIC (1)",
+    icon: <Users className="h-5 w-5" />
+  }
+];
+
+const febIssues: CriticalIssue[] = [
+  {
+    rank: 1,
+    market: "ADULT_SEXUAL_SOLICITATION",
+    errorCategory: "Adult Sexual Solicitation",
+    errorCount: 83,
+    impact: "EXTREMELY HIGH",
+    recommendation: "INDONESIAN (16) • ARABIC (14) • GERMAN (12) • ITALIAN (9) • HUNGARIAN (8) • MAGHREB (6) • UKIA (5) • RUSSIAN (4) • POLISH (4) • MALAY (3) • PERSIAN (2)",
+    icon: <Users className="h-5 w-5" />
+  },
+  {
+    rank: 2,
+    market: "DANGEROUS_INDIVIDUALS_AND_ORGS",
+    errorCategory: "Dangerous Individuals & Organizations",
+    errorCount: 59,
+    impact: "VERY HIGH",
+    recommendation: "ARABIC (18) • GERMAN (10) • ITALIAN (7) • PERSIAN (6) • INDONESIAN (5) • MAGHREB (4) • RUSSIAN (3) • UKIA (3) • POLISH (2) • HUNGARIAN (1)",
+    icon: <AlertTriangle className="h-5 w-5" />
+  },
+  {
+    rank: 3,
+    market: "ADULT_SEXUAL_EXPLOITATION",
+    errorCategory: "Adult Sexual Exploitation",
+    errorCount: 47,
+    impact: "VERY HIGH",
+    recommendation: "ARABIC (10) • INDONESIAN (9) • GERMAN (7) • ITALIAN (6) • MAGHREB (5) • PERSIAN (4) • HUNGARIAN (3) • RUSSIAN (2) • UKIA (1)",
+    icon: <Users className="h-5 w-5" />
+  }
+];
+
+export function TopCriticalIssues({ period = 'jan2026' }: TopCriticalIssuesProps) {
+  const criticalIssues = period === 'feb2026' ? febIssues : janIssues;
+
+  const summaryText = period === 'feb2026'
+    ? "These 3 policy groups account for 189 critical errors out of 686 total (27.6%). Addressing these will improve accuracy by +2.75pp."
+    : "These 3 policy groups account for 69 critical errors out of 690 total (10%). Addressing these will improve accuracy by +1.5pp.";
+
+  const nextReview = period === 'feb2026' ? "Week 1, March 2026" : "Week 4, February 2026";
+
+  const expectedImpact = period === 'feb2026'
+    ? "+2.75pp accuracy improvement (87.23% → 89.98%)"
+    : "+1.5pp accuracy improvement (85.13% → 86.63%)";
 
   const getImpactColor = (impact: string) => {
-    // EXTREMELY HIGH = Most urgent (red with pulse)
     if (impact.includes("EXTREMELY HIGH")) {
       return "bg-red-700 dark:bg-red-800 text-white hover:bg-red-800 animate-pulse font-bold";
     }
-    // VERY HIGH = Second most urgent (red, no pulse)
     if (impact.includes("VERY HIGH")) {
       return "bg-red-600 dark:bg-red-700 text-white hover:bg-red-700 font-semibold";
     }
-    // HIGH = Third level (orange)
     if (impact.includes("HIGH")) {
       return "bg-orange-600 dark:bg-orange-700 text-white hover:bg-orange-700";
     }
     switch (impact) {
-      case "Critical":
-        return "bg-red-600 dark:bg-red-700 text-white hover:bg-red-700";
-      case "High":
-        return "bg-orange-600 dark:bg-orange-700 text-white hover:bg-orange-700";
-      case "Medium":
-        return "bg-yellow-600 dark:bg-yellow-700 text-white hover:bg-yellow-700";
-      default:
-        return "bg-gray-600 dark:bg-gray-700 text-white hover:bg-gray-700";
+      case "Critical": return "bg-red-600 dark:bg-red-700 text-white hover:bg-red-700";
+      case "High": return "bg-orange-600 dark:bg-orange-700 text-white hover:bg-orange-700";
+      case "Medium": return "bg-yellow-600 dark:bg-yellow-700 text-white hover:bg-yellow-700";
+      default: return "bg-gray-600 dark:bg-gray-700 text-white hover:bg-gray-700";
     }
   };
 
   const getImpactBorderColor = (impact: string) => {
-    // EXTREMELY HIGH = Darkest red border
-    if (impact.includes("EXTREMELY HIGH")) {
-      return "border-t-red-700 border-t-4";
-    }
-    // VERY HIGH = Red border
-    if (impact.includes("VERY HIGH")) {
-      return "border-t-red-600 border-t-4";
-    }
-    // HIGH = Orange border
-    if (impact.includes("HIGH")) {
-      return "border-t-orange-600";
-    }
+    if (impact.includes("EXTREMELY HIGH")) return "border-t-red-700 border-t-4";
+    if (impact.includes("VERY HIGH")) return "border-t-red-600 border-t-4";
+    if (impact.includes("HIGH")) return "border-t-orange-600";
     switch (impact) {
-      case "Critical":
-        return "border-t-red-600";
-      case "High":
-        return "border-t-orange-600";
-      case "Medium":
-        return "border-t-yellow-600";
-      default:
-        return "border-t-gray-500";
+      case "Critical": return "border-t-red-600";
+      case "High": return "border-t-orange-600";
+      case "Medium": return "border-t-yellow-600";
+      default: return "border-t-gray-500";
     }
   };
 
@@ -103,9 +129,7 @@ export function TopCriticalIssues() {
           </div>
           <div>
             <h3 className="font-semibold text-sm mb-1">Priority Action Required</h3>
-            <p className="text-sm text-muted-foreground">
-              These 3 policy groups account for 69 critical errors out of 695 total (10%). Addressing these will improve accuracy by +1.5pp.
-            </p>
+            <p className="text-sm text-muted-foreground">{summaryText}</p>
           </div>
         </div>
       </div>
@@ -146,7 +170,7 @@ export function TopCriticalIssues() {
                       const [name, count] = market.split(' (');
                       const errorCount = parseInt(count?.replace(')', '') || '0');
                       const isHighPriority = errorCount >= 4;
-                      
+
                       return (
                         <div
                           key={idx}
@@ -174,11 +198,11 @@ export function TopCriticalIssues() {
         <div className="flex items-center justify-between">
           <div className="text-sm">
             <span className="font-semibold">Next Review:</span>
-            <span className="text-muted-foreground ml-2">Week 4, February 2026</span>
+            <span className="text-muted-foreground ml-2">{nextReview}</span>
           </div>
           <div className="text-sm">
             <span className="font-semibold">Expected Impact:</span>
-            <span className="text-green-600 dark:text-green-400 ml-2 font-semibold">+1.5pp accuracy improvement (85.02% → 86.51%)</span>
+            <span className="text-green-600 dark:text-green-400 ml-2 font-semibold">{expectedImpact}</span>
           </div>
         </div>
       </div>

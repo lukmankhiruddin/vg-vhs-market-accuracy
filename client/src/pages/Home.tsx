@@ -18,6 +18,7 @@ import {
 } from "@/components/InteractiveCharts";
 import { MarketDetailModal } from "@/components/MarketDetailModal";
 import { TopCriticalIssues } from "@/components/TopCriticalIssues";
+import { CalibrationTrendChart } from "@/components/CalibrationTrendChart";
 import { toast } from "sonner";
 
 interface MarketData {
@@ -37,6 +38,16 @@ export default function Home() {
   const [selectedMarket, setSelectedMarket] = useState<MarketData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hoveredMarket, setHoveredMarket] = useState<string | null>(null);
+
+  // Calibration trend data (February 2026 only - first month with dispute tracking)
+  const calibrationData = {
+    feb2026: [
+      { date: '5 Feb',  pre_cal: 85.59, post_cal: 85.59, uplift: 0.00, samples: 1506, overturn_count: 0 },
+      { date: '12 Feb', pre_cal: 86.30, post_cal: 87.20, uplift: 0.90, samples: 1445, overturn_count: 13 },
+      { date: '19 Feb', pre_cal: 86.68, post_cal: 88.58, uplift: 1.90, samples: 1576, overturn_count: 30 },
+      { date: '26 Feb', pre_cal: 86.32, post_cal: 91.58, uplift: 5.26, samples: 190,  overturn_count: 10 },
+    ]
+  };
 
   // Period definitions
   const periods = {
@@ -62,22 +73,28 @@ export default function Home() {
     },
     feb2026: {
       label: 'February 2026',
-      dateRange: 'Feb 1-19, 2026',
-      overallAccuracy: 86.34,
-      totalSamples: 3140,
-      totalErrors: 429,
+      dateRange: 'Feb 1-27, 2026',
+      overallAccuracy: 86.16,
+      totalSamples: 4955,
+      totalErrors: 686,
       data: [
-        { market: "ARABIC", vg_accuracy: 80.54, vhs_accuracy: 93.11, vg_vhs_accuracy: 76.65, sample_count: 334, incorrect_count: 78, weekly_trend: [82.57, 73.02, 74.75, 0], avg_sample: 83 },
-        { market: "CHINESE_MANDARIN", vg_accuracy: 85.64, vhs_accuracy: 96.13, vg_vhs_accuracy: 84.53, sample_count: 181, incorrect_count: 28, weekly_trend: [80.81, 100.0, 86.76, 0], avg_sample: 45 },
-        { market: "GERMAN", vg_accuracy: 80.56, vhs_accuracy: 96.62, vg_vhs_accuracy: 79.44, sample_count: 355, incorrect_count: 73, weekly_trend: [81.89, 74.6, 82.35, 0], avg_sample: 88 },
-        { market: "HUNGARIAN", vg_accuracy: 87.43, vhs_accuracy: 97.81, vg_vhs_accuracy: 86.34, sample_count: 183, incorrect_count: 25, weekly_trend: [79.03, 87.95, 94.74, 0], avg_sample: 45 },
-        { market: "INDONESIAN", vg_accuracy: 91.98, vhs_accuracy: 97.74, vg_vhs_accuracy: 90.23, sample_count: 399, incorrect_count: 39, weekly_trend: [90.73, 89.81, 90.11, 0], avg_sample: 99 },
-        { market: "MAGHREB", vg_accuracy: 93.82, vhs_accuracy: 96.91, vg_vhs_accuracy: 91.85, sample_count: 356, incorrect_count: 29, weekly_trend: [91.33, 91.45, 93.26, 0], avg_sample: 89 },
-        { market: "MALAY", vg_accuracy: 88.60, vhs_accuracy: 93.78, vg_vhs_accuracy: 84.97, sample_count: 193, incorrect_count: 29, weekly_trend: [83.82, 84.62, 86.67, 0], avg_sample: 48 },
-        { market: "PAKISTAN_OTHERS", vg_accuracy: 85.76, vhs_accuracy: 92.73, vg_vhs_accuracy: 83.03, sample_count: 330, incorrect_count: 56, weekly_trend: [82.98, 82.79, 83.58, 0], avg_sample: 82 },
-        { market: "RUSSIAN", vg_accuracy: 92.01, vhs_accuracy: 98.72, vg_vhs_accuracy: 91.69, sample_count: 313, incorrect_count: 26, weekly_trend: [97.03, 90.29, 88.07, 0], avg_sample: 78 },
-        { market: "TURKISH", vg_accuracy: 91.19, vhs_accuracy: 97.29, vg_vhs_accuracy: 89.49, sample_count: 295, incorrect_count: 31, weekly_trend: [90.11, 89.29, 89.13, 0], avg_sample: 73 },
-        { market: "UKRAINIAN", vg_accuracy: 93.03, vhs_accuracy: 98.51, vg_vhs_accuracy: 92.54, sample_count: 201, incorrect_count: 15, weekly_trend: [93.15, 90.36, 95.56, 0], avg_sample: 50 },
+        // Original 11 markets — updated with post-calibration values
+        { market: "ARABIC", vg_accuracy: 80.64, vhs_accuracy: 93.35, vg_vhs_accuracy: 76.88, sample_count: 346, incorrect_count: 80, weekly_trend: [83.17, 72.63, 74.07, 0], avg_sample: 87 },
+        { market: "CHINESE_MANDARIN", vg_accuracy: 85.79, vhs_accuracy: 96.17, vg_vhs_accuracy: 84.70, sample_count: 183, incorrect_count: 28, weekly_trend: [80.81, 0, 89.02, 0], avg_sample: 46 },
+        { market: "GERMAN", vg_accuracy: 80.70, vhs_accuracy: 95.98, vg_vhs_accuracy: 79.09, sample_count: 373, incorrect_count: 78, weekly_trend: [81.31, 74.58, 82.31, 0], avg_sample: 93 },
+        { market: "HUNGARIAN", vg_accuracy: 88.74, vhs_accuracy: 98.20, vg_vhs_accuracy: 87.84, sample_count: 222, incorrect_count: 27, weekly_trend: [78.85, 84.72, 94.64, 96.43], avg_sample: 56 },
+        { market: "INDONESIAN", vg_accuracy: 91.77, vhs_accuracy: 97.51, vg_vhs_accuracy: 89.78, sample_count: 401, incorrect_count: 41, weekly_trend: [90.54, 90.48, 89.32, 0], avg_sample: 100 },
+        { market: "MAGHREB", vg_accuracy: 93.88, vhs_accuracy: 97.07, vg_vhs_accuracy: 92.29, sample_count: 376, incorrect_count: 29, weekly_trend: [89.92, 94.59, 92.11, 0], avg_sample: 94 },
+        { market: "MALAY", vg_accuracy: 88.14, vhs_accuracy: 93.81, vg_vhs_accuracy: 84.54, sample_count: 194, incorrect_count: 30, weekly_trend: [83.33, 84.38, 87.30, 0], avg_sample: 49 },
+        { market: "PAKISTAN_OTHERS", vg_accuracy: 86.31, vhs_accuracy: 93.15, vg_vhs_accuracy: 83.63, sample_count: 336, incorrect_count: 55, weekly_trend: [83.21, 83.62, 82.43, 100.0], avg_sample: 84 },
+        { market: "RUSSIAN", vg_accuracy: 92.31, vhs_accuracy: 98.90, vg_vhs_accuracy: 92.03, sample_count: 364, incorrect_count: 29, weekly_trend: [97.00, 88.64, 89.52, 100.0], avg_sample: 91 },
+        { market: "TURKISH", vg_accuracy: 90.93, vhs_accuracy: 97.33, vg_vhs_accuracy: 89.07, sample_count: 375, incorrect_count: 41, weekly_trend: [89.87, 88.54, 89.83, 89.58], avg_sample: 94 },
+        { market: "UKRAINIAN", vg_accuracy: 92.34, vhs_accuracy: 98.20, vg_vhs_accuracy: 91.89, sample_count: 222, incorrect_count: 18, weekly_trend: [91.80, 92.77, 92.98, 90.91], avg_sample: 56 },
+        // New markets added
+        { market: "ITALIAN", vg_accuracy: 80.37, vhs_accuracy: 96.96, vg_vhs_accuracy: 78.97, sample_count: 428, incorrect_count: 90, weekly_trend: [76.67, 81.48, 82.54, 63.64], avg_sample: 107 },
+        { market: "PERSIAN", vg_accuracy: 88.82, vhs_accuracy: 98.28, vg_vhs_accuracy: 87.96, sample_count: 465, incorrect_count: 56, weekly_trend: [83.67, 91.91, 89.08, 77.42], avg_sample: 116 },
+        { market: "POLISH", vg_accuracy: 92.21, vhs_accuracy: 98.38, vg_vhs_accuracy: 91.88, sample_count: 308, incorrect_count: 25, weekly_trend: [94.12, 89.89, 91.43, 100.0], avg_sample: 77 },
+        { market: "UKIA", vg_accuracy: 84.81, vhs_accuracy: 95.86, vg_vhs_accuracy: 83.70, sample_count: 362, incorrect_count: 59, weekly_trend: [81.91, 87.70, 82.61, 72.73], avg_sample: 91 },
       ]
     }
   };
@@ -339,10 +356,35 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <TopCriticalIssues />
+            <TopCriticalIssues period={selectedPeriod} />
           </div>
         </section>
-      )}      {/* Contributing Factors */}
+      )}
+
+      {/* Calibration Trend Chart - February 2026 only */}
+      {marketData.length > 0 && selectedPeriod === 'feb2026' && (
+        <section className="py-10 bg-background">
+          <div className="container">
+            <div className="flex items-start gap-4 mb-6">
+              <div className="p-3 rounded-lg bg-blue-500/10">
+                <TrendingDown className="h-6 w-6 text-blue-500" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-1">Pre-Cal vs Post-Cal Accuracy Trend</h2>
+                <p className="text-muted-foreground max-w-3xl">
+                  Weekly movement showing calibration uplift from dispute resolutions. Post-Cal = Pre-Cal + Overturned errors (Audit Errors resolved in MSP's favour).
+                </p>
+              </div>
+            </div>
+            <CalibrationTrendChart
+              data={calibrationData.feb2026}
+              targetAccuracy={85}
+            />
+          </div>
+        </section>
+      )}
+
+      {/* Contributing Factors */}
       {marketData.length > 0 && (
         <section className="py-12 bg-background">
         <div className="container">
@@ -359,47 +401,67 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Top Error Category</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <div className="text-3xl font-bold metric-value text-chart-1">202</div>
-                  <p className="text-sm text-muted-foreground">
-                    <strong>NON_VIOLATING</strong> misclassifications represent 29.1% of all errors (4-week)
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Improvement Rate</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <div className="text-3xl font-bold metric-value text-chart-3">+4.0pp</div>
-                  <p className="text-sm text-muted-foreground">
-                    Overall accuracy improved from <strong>83.13% (W1)</strong> to <strong>87.13% (W4)</strong> across all markets
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Quick Win Potential</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <div className="text-3xl font-bold metric-value text-green-600">+1.5pp</div>
-                  <p className="text-sm text-muted-foreground">
-                    Accuracy gain from fixing <strong>Top 3 high-severity policy groups</strong> (69 errors)
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            {selectedPeriod === 'jan2026' ? (
+              <>
+                <Card>
+                  <CardHeader><CardTitle className="text-lg">Top Error Category</CardTitle></CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="text-3xl font-bold metric-value text-chart-1">202</div>
+                      <p className="text-sm text-muted-foreground"><strong>NON_VIOLATING</strong> misclassifications represent 29.1% of all errors (4-week)</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader><CardTitle className="text-lg">Improvement Rate</CardTitle></CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="text-3xl font-bold metric-value text-chart-3">+4.0pp</div>
+                      <p className="text-sm text-muted-foreground">Overall accuracy improved from <strong>83.13% (W1)</strong> to <strong>87.13% (W4)</strong> across all markets</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader><CardTitle className="text-lg">Quick Win Potential</CardTitle></CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="text-3xl font-bold metric-value text-green-600">+1.5pp</div>
+                      <p className="text-sm text-muted-foreground">Accuracy gain from fixing <strong>Top 3 high-severity policy groups</strong> (69 errors)</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </>
+            ) : (
+              <>
+                <Card>
+                  <CardHeader><CardTitle className="text-lg">Top Error Category</CardTitle></CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="text-3xl font-bold metric-value text-chart-1">227</div>
+                      <p className="text-sm text-muted-foreground"><strong>POLICY_AGNOSTIC</strong> misclassifications represent 33.1% of all errors — highest across GERMAN (42), ITALIAN (29), ARABIC (22)</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader><CardTitle className="text-lg">Calibration Uplift</CardTitle></CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="text-3xl font-bold metric-value text-chart-3">+1.07pp</div>
+                      <p className="text-sm text-muted-foreground">Post-Cal improved from <strong>86.16% (Pre)</strong> to <strong>87.23% (Post)</strong> via 53 overturns across 4 weeks</p>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader><CardTitle className="text-lg">Quick Win Potential</CardTitle></CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="text-3xl font-bold metric-value text-green-600">+1.7pp</div>
+                      <p className="text-sm text-muted-foreground">Accuracy gain from fixing <strong>ADULT_SEXUAL_SOLICITATION + DANGEROUS_INDIVIDUALS</strong> (142 errors combined)</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </>
+            )}
           </div>
         </div>
         </section>
@@ -420,13 +482,15 @@ export default function Home() {
             <div>
               <h2 className="text-2xl font-bold mb-2">Path to 90% Accuracy</h2>
               <p className="text-muted-foreground max-w-3xl">
-                Data-driven roadmap to achieve 90% accuracy (+4.87pp improvement) by end of February 2026
+                {selectedPeriod === 'jan2026'
+                  ? 'Data-driven roadmap to achieve 90% accuracy (+4.87pp improvement) based on January 2026 performance'
+                  : 'Data-driven roadmap to achieve 90% accuracy (+2.77pp improvement) based on February 2026 Post-Cal performance (87.23%)'}
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
-            {[
+            {(selectedPeriod === 'jan2026' ? [
               {
                 priority: 1,
                 title: "Eliminate False Positives (NON_VIOLATING Over-Flagging)",
@@ -457,7 +521,38 @@ export default function Home() {
                   "Validate accuracy metrics with additional spot checks before making strategic decisions based on these markets"
                 ]
               }
-            ].map((rec, index) => (
+            ] : [
+              {
+                priority: 1,
+                title: "Reduce POLICY_AGNOSTIC Misclassifications",
+                impact: "+2.20pp → 89.43%",
+                errors: "227 errors (33.1% of total)",
+                actions: [
+                  "Focus on GERMAN (42 errors), ITALIAN (29), ARABIC (22) — deploy targeted POLICY_AGNOSTIC vs NON_VIOLATING calibration sessions",
+                  "Introduce weekly error review meetings sharing top 5 misclassified POLICY_AGNOSTIC cases per market to build shared understanding"
+                ]
+              },
+              {
+                priority: 2,
+                title: "Address ADULT_SEXUAL_SOLICITATION Surge",
+                impact: "+1.20pp → 88.43%",
+                errors: "83 errors across 9 markets (EXTREMELY HIGH severity)",
+                actions: [
+                  "INDONESIAN (16), ARABIC (14), GERMAN (12) are top contributors — mandate specialist review for all ADULT_SEXUAL_SOLICITATION flagged content",
+                  "Run cross-market calibration session comparing borderline cases between ADULT_SEXUAL_SOLICITATION and ADULT_SEXUAL_EXPLOITATION policy groups"
+                ]
+              },
+              {
+                priority: 3,
+                title: "Maximise Calibration Uplift (Dispute Resolution)",
+                impact: "+1.07pp already gained via 53 overturns",
+                errors: "W4 uplift: +5.26pp — highest single-week gain",
+                actions: [
+                  "Ensure all eligible disputes (pre-dispute score ≥75%) are filed promptly — W1 had 0 overturns, representing missed uplift opportunity",
+                  "Target GERMAN (11 overturns), ITALIAN (10), RUSSIAN (9) for structured dispute coaching to maintain W4 momentum into March"
+                ]
+              }
+            ]).map((rec, index) => (
               <motion.div
                 key={rec.priority}
                 initial={{ opacity: 0, y: 20 }}
