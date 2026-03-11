@@ -28,7 +28,7 @@ interface MarketData {
   vg_vhs_accuracy: number;
   sample_count: number;
   incorrect_count: number;
-  weekly_trend?: number[]; // W1, W2, W3, W4 accuracy percentages
+  weekly_trend?: (number | null)[]; // W1, W2, W3, W4 accuracy percentages (null = insufficient data)
   avg_sample: number; // 4-week average sample count
 }
 
@@ -74,27 +74,26 @@ export default function Home() {
     feb2026: {
       label: 'February 2026',
       dateRange: 'Feb 1-27, 2026',
-      overallAccuracy: 86.16,
+      overallAccuracy: 87.23, // Post-Cal overall accuracy
       totalSamples: 4955,
-      totalErrors: 686,
+      totalErrors: 633, // Post-Cal errors (4955 - 4322)
       data: [
-        // Original 11 markets — updated with post-calibration values
-        { market: "ARABIC", vg_accuracy: 80.64, vhs_accuracy: 93.35, vg_vhs_accuracy: 76.88, sample_count: 346, incorrect_count: 80, weekly_trend: [83.17, 72.63, 74.07, 0], avg_sample: 87 },
-        { market: "CHINESE_MANDARIN", vg_accuracy: 85.79, vhs_accuracy: 96.17, vg_vhs_accuracy: 84.70, sample_count: 183, incorrect_count: 28, weekly_trend: [80.81, 0, 89.02, 0], avg_sample: 46 },
-        { market: "GERMAN", vg_accuracy: 80.70, vhs_accuracy: 95.98, vg_vhs_accuracy: 79.09, sample_count: 373, incorrect_count: 78, weekly_trend: [81.31, 74.58, 82.31, 0], avg_sample: 93 },
-        { market: "HUNGARIAN", vg_accuracy: 88.74, vhs_accuracy: 98.20, vg_vhs_accuracy: 87.84, sample_count: 222, incorrect_count: 27, weekly_trend: [78.85, 84.72, 94.64, 96.43], avg_sample: 56 },
-        { market: "INDONESIAN", vg_accuracy: 91.77, vhs_accuracy: 97.51, vg_vhs_accuracy: 89.78, sample_count: 401, incorrect_count: 41, weekly_trend: [90.54, 90.48, 89.32, 0], avg_sample: 100 },
-        { market: "MAGHREB", vg_accuracy: 93.88, vhs_accuracy: 97.07, vg_vhs_accuracy: 92.29, sample_count: 376, incorrect_count: 29, weekly_trend: [89.92, 94.59, 92.11, 0], avg_sample: 94 },
-        { market: "MALAY", vg_accuracy: 88.14, vhs_accuracy: 93.81, vg_vhs_accuracy: 84.54, sample_count: 194, incorrect_count: 30, weekly_trend: [83.33, 84.38, 87.30, 0], avg_sample: 49 },
-        { market: "PAKISTAN_OTHERS", vg_accuracy: 86.31, vhs_accuracy: 93.15, vg_vhs_accuracy: 83.63, sample_count: 336, incorrect_count: 55, weekly_trend: [83.21, 83.62, 82.43, 100.0], avg_sample: 84 },
-        { market: "RUSSIAN", vg_accuracy: 92.31, vhs_accuracy: 98.90, vg_vhs_accuracy: 92.03, sample_count: 364, incorrect_count: 29, weekly_trend: [97.00, 88.64, 89.52, 100.0], avg_sample: 91 },
-        { market: "TURKISH", vg_accuracy: 90.93, vhs_accuracy: 97.33, vg_vhs_accuracy: 89.07, sample_count: 375, incorrect_count: 41, weekly_trend: [89.87, 88.54, 89.83, 89.58], avg_sample: 94 },
-        { market: "UKRAINIAN", vg_accuracy: 92.34, vhs_accuracy: 98.20, vg_vhs_accuracy: 91.89, sample_count: 222, incorrect_count: 18, weekly_trend: [91.80, 92.77, 92.98, 90.91], avg_sample: 56 },
-        // New markets added
-        { market: "ITALIAN", vg_accuracy: 80.37, vhs_accuracy: 96.96, vg_vhs_accuracy: 78.97, sample_count: 428, incorrect_count: 90, weekly_trend: [76.67, 81.48, 82.54, 63.64], avg_sample: 107 },
-        { market: "PERSIAN", vg_accuracy: 88.82, vhs_accuracy: 98.28, vg_vhs_accuracy: 87.96, sample_count: 465, incorrect_count: 56, weekly_trend: [83.67, 91.91, 89.08, 77.42], avg_sample: 116 },
-        { market: "POLISH", vg_accuracy: 92.21, vhs_accuracy: 98.38, vg_vhs_accuracy: 91.88, sample_count: 308, incorrect_count: 25, weekly_trend: [94.12, 89.89, 91.43, 100.0], avg_sample: 77 },
-        { market: "UKIA", vg_accuracy: 84.81, vhs_accuracy: 95.86, vg_vhs_accuracy: 83.70, sample_count: 362, incorrect_count: 59, weekly_trend: [81.91, 87.70, 82.61, 72.73], avg_sample: 91 },
+        // All markets — post-calibration values, weekly_trend uses post-cal; null = insufficient samples (<5)
+        { market: "ARABIC",           vg_accuracy: 80.64, vhs_accuracy: 93.35, vg_vhs_accuracy: 76.88, sample_count: 346, incorrect_count: 80,  weekly_trend: [83.17, 72.63, 74.07, null], avg_sample: 87 },
+        { market: "CHINESE_MANDARIN", vg_accuracy: 85.79, vhs_accuracy: 96.17, vg_vhs_accuracy: 84.70, sample_count: 183, incorrect_count: 28,  weekly_trend: [80.81, null,  89.02, null], avg_sample: 46 },
+        { market: "GERMAN",           vg_accuracy: 80.70, vhs_accuracy: 95.98, vg_vhs_accuracy: 81.50, sample_count: 373, incorrect_count: 69,  weekly_trend: [81.31, 74.58, 89.23, null], avg_sample: 93 },
+        { market: "HUNGARIAN",        vg_accuracy: 88.74, vhs_accuracy: 98.20, vg_vhs_accuracy: 88.74, sample_count: 222, incorrect_count: 25,  weekly_trend: [78.85, 84.72, 96.43, 100.0], avg_sample: 56 },
+        { market: "INDONESIAN",       vg_accuracy: 91.77, vhs_accuracy: 97.51, vg_vhs_accuracy: 91.27, sample_count: 401, incorrect_count: 35,  weekly_trend: [90.54, 93.20, 90.29, null], avg_sample: 100 },
+        { market: "MAGHREB",          vg_accuracy: 93.88, vhs_accuracy: 97.07, vg_vhs_accuracy: 93.62, sample_count: 376, incorrect_count: 24,  weekly_trend: [89.92, 97.30, 93.86, null], avg_sample: 94 },
+        { market: "MALAY",            vg_accuracy: 88.14, vhs_accuracy: 93.81, vg_vhs_accuracy: 84.54, sample_count: 194, incorrect_count: 30,  weekly_trend: [83.33, 84.38, 87.30, null], avg_sample: 49 },
+        { market: "PAKISTAN_OTHERS",  vg_accuracy: 86.31, vhs_accuracy: 93.15, vg_vhs_accuracy: 83.63, sample_count: 336, incorrect_count: 55,  weekly_trend: [83.21, 83.62, 82.43, null], avg_sample: 84 },
+        { market: "RUSSIAN",          vg_accuracy: 92.31, vhs_accuracy: 98.90, vg_vhs_accuracy: 94.51, sample_count: 364, incorrect_count: 20,  weekly_trend: [97.00, 92.05, 94.35, 100.0], avg_sample: 91 },
+        { market: "TURKISH",          vg_accuracy: 90.93, vhs_accuracy: 97.33, vg_vhs_accuracy: 89.33, sample_count: 375, incorrect_count: 40,  weekly_trend: [89.87, 88.54, 90.68, 89.58], avg_sample: 94 },
+        { market: "UKRAINIAN",        vg_accuracy: 92.34, vhs_accuracy: 98.20, vg_vhs_accuracy: 91.89, sample_count: 222, incorrect_count: 18,  weekly_trend: [91.80, 92.77, 92.98, 90.91], avg_sample: 56 },
+        { market: "ITALIAN",          vg_accuracy: 80.37, vhs_accuracy: 96.96, vg_vhs_accuracy: 81.07, sample_count: 428, incorrect_count: 81,  weekly_trend: [76.67, 83.33, 84.92, 81.82], avg_sample: 107 },
+        { market: "PERSIAN",          vg_accuracy: 88.82, vhs_accuracy: 98.28, vg_vhs_accuracy: 89.68, sample_count: 465, incorrect_count: 48,  weekly_trend: [83.67, 91.91, 91.38, 90.32], avg_sample: 116 },
+        { market: "POLISH",           vg_accuracy: 92.21, vhs_accuracy: 98.38, vg_vhs_accuracy: 91.88, sample_count: 308, incorrect_count: 25,  weekly_trend: [94.12, 89.89, 91.43, null], avg_sample: 77 },
+        { market: "UKIA",             vg_accuracy: 84.81, vhs_accuracy: 95.86, vg_vhs_accuracy: 84.81, sample_count: 362, incorrect_count: 55,  weekly_trend: [81.91, 88.52, 85.22, 72.73], avg_sample: 91 },
       ]
     }
   };
@@ -116,17 +115,19 @@ export default function Home() {
   const totalMarkets = marketData.length;
   
   // Calculate biggest improver from weekly trends
+  // Helper: get valid (non-null) first and last values from weekly_trend
+  const getTrendGain = (trend: (number | null)[] | undefined): number => {
+    if (!trend || trend.length < 2) return 0;
+    const valid = trend.filter(v => v !== null) as number[];
+    if (valid.length < 2) return 0;
+    return valid[valid.length - 1] - valid[0];
+  };
+
   const biggestImprover = marketData.length > 0 ? marketData.reduce((best, current) => {
-    if (!current.weekly_trend || current.weekly_trend.length < 2) return best;
-    const currentImprovement = current.weekly_trend[current.weekly_trend.length - 1] - current.weekly_trend[0];
-    if (!best.weekly_trend || best.weekly_trend.length < 2) return current;
-    const bestImprovement = best.weekly_trend[best.weekly_trend.length - 1] - best.weekly_trend[0];
-    return currentImprovement > bestImprovement ? current : best;
+    return getTrendGain(current.weekly_trend) > getTrendGain(best.weekly_trend) ? current : best;
   }, marketData[0]) : null;
   
-  const biggestImproverGain = biggestImprover && biggestImprover.weekly_trend && biggestImprover.weekly_trend.length >= 2
-    ? biggestImprover.weekly_trend[biggestImprover.weekly_trend.length - 1] - biggestImprover.weekly_trend[0]
-    : 0;
+  const biggestImproverGain = biggestImprover ? getTrendGain(biggestImprover.weekly_trend) : 0;
   
   // Check if current period has data
   const hasData = marketData.length > 0 && totalSamples > 0;
