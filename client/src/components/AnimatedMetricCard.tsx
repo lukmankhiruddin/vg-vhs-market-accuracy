@@ -29,27 +29,25 @@ export function AnimatedMetricCard({
   isPercentage = false,
   delay = 0,
 }: AnimatedMetricCardProps) {
-  const [hasAnimated, setHasAnimated] = useState(false);
   const isNumericValue = typeof value === 'number';
-  const count = useMotionValue(0);
+  const count = useMotionValue(isNumericValue ? value as number : 0);
   const rounded = useTransform(count, (latest) => {
     return isPercentage ? latest.toFixed(2) : Math.round(latest).toLocaleString();
   });
 
   useEffect(() => {
-    if (!hasAnimated && isNumericValue) {
+    if (isNumericValue) {
       const timer = setTimeout(() => {
         const controls = animate(count, value as number, {
-          duration: 1.5,
+          duration: 1.2,
           ease: "easeOut",
         });
-        setHasAnimated(true);
         return controls.stop;
       }, delay);
 
       return () => clearTimeout(timer);
     }
-  }, [count, value, hasAnimated, delay, isNumericValue]);
+  }, [value, delay, isNumericValue]);
 
   return (
     <motion.div
