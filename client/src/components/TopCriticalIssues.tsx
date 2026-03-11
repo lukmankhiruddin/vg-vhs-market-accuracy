@@ -50,30 +50,30 @@ const janIssues: CriticalIssue[] = [
 const febIssues: CriticalIssue[] = [
   {
     rank: 1,
-    market: "ADULT_SEXUAL_SOLICITATION",
-    errorCategory: "Adult Sexual Solicitation",
-    errorCount: 83,
-    impact: "EXTREMELY HIGH",
-    recommendation: "INDONESIAN (16) • ARABIC (14) • GERMAN (12) • ITALIAN (9) • HUNGARIAN (8) • MAGHREB (6) • UKIA (5) • RUSSIAN (4) • POLISH (4) • MALAY (3) • PERSIAN (2)",
-    icon: <Users className="h-5 w-5" />
-  },
-  {
-    rank: 2,
     market: "DANGEROUS_INDIVIDUALS_AND_ORGS",
     errorCategory: "Dangerous Individuals & Organizations",
-    errorCount: 59,
+    errorCount: 32,
     impact: "VERY HIGH",
-    recommendation: "ARABIC (18) • GERMAN (10) • ITALIAN (7) • PERSIAN (6) • INDONESIAN (5) • MAGHREB (4) • RUSSIAN (3) • UKIA (3) • POLISH (2) • HUNGARIAN (1)",
+    recommendation: "ARABIC (9) • ITALIAN (6) • PAKISTAN_OTHERS (5) • MALAY (4) • HUNGARIAN (3) • TURKISH (2) • GERMAN (1) • MAGHREB (1) • PERSIAN (1)",
     icon: <AlertTriangle className="h-5 w-5" />
   },
   {
-    rank: 3,
+    rank: 2,
     market: "ADULT_SEXUAL_EXPLOITATION",
     errorCategory: "Adult Sexual Exploitation",
-    errorCount: 47,
+    errorCount: 12,
     impact: "VERY HIGH",
-    recommendation: "ARABIC (10) • INDONESIAN (9) • GERMAN (7) • ITALIAN (6) • MAGHREB (5) • PERSIAN (4) • HUNGARIAN (3) • RUSSIAN (2) • UKIA (1)",
+    recommendation: "CHINESE_MANDARIN (3) • ITALIAN (2) • PAKISTAN_OTHERS (2) • HUNGARIAN (1) • PERSIAN (1) • RUSSIAN (1) • TURKISH (1) • UKIA (1)",
     icon: <Users className="h-5 w-5" />
+  },
+  {
+    rank: 3,
+    market: "DRUGS_AND_PHARMACEUTICALS",
+    errorCategory: "Drugs & Pharmaceuticals",
+    errorCount: 11,
+    impact: "VERY HIGH",
+    recommendation: "UKIA (5) • ARABIC (1) • GERMAN (1) • MAGHREB (1) • MALAY (1) • PAKISTAN_OTHERS (1) • UKRAINIAN (1)",
+    icon: <AlertTriangle className="h-5 w-5" />
   }
 ];
 
@@ -81,13 +81,13 @@ export function TopCriticalIssues({ period = 'jan2026' }: TopCriticalIssuesProps
   const criticalIssues = period === 'feb2026' ? febIssues : janIssues;
 
   const summaryText = period === 'feb2026'
-    ? "These 3 policy groups account for 189 critical errors out of 686 total (27.6%). Addressing these will improve accuracy by +2.75pp."
+    ? "These 3 policy groups account for 55 high-severity errors out of 686 total (8.0%). Addressing these will improve accuracy by +1.11pp."
     : "These 3 policy groups account for 69 critical errors out of 690 total (10%). Addressing these will improve accuracy by +1.5pp.";
 
   const nextReview = period === 'feb2026' ? "Week 1, March 2026" : "Week 4, February 2026";
 
   const expectedImpact = period === 'feb2026'
-    ? "+2.75pp accuracy improvement (87.23% → 89.98%)"
+    ? "+1.11pp accuracy improvement (87.23% → 88.34%)"
     : "+1.5pp accuracy improvement (85.13% → 86.63%)";
 
   const getImpactColor = (impact: string) => {
