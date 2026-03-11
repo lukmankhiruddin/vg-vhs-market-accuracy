@@ -34,7 +34,6 @@ interface MarketData {
 
 export default function Home() {
   const [selectedPeriod, setSelectedPeriod] = useState<string>('jan2026');
-  const [marketData, setMarketData] = useState<MarketData[]>([]);
   const [selectedMarket, setSelectedMarket] = useState<MarketData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hoveredMarket, setHoveredMarket] = useState<string | null>(null);
@@ -98,14 +97,9 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    // Load data for selected period
-    const currentPeriod = periods[selectedPeriod as keyof typeof periods];
-    setMarketData(currentPeriod.data);
-  }, [selectedPeriod]);
-
-  // Get current period data
+  // Get current period data — derive directly (no useEffect timing lag)
   const currentPeriod = periods[selectedPeriod as keyof typeof periods];
+  const marketData = currentPeriod.data;
   const overallAccuracy = currentPeriod.overallAccuracy;
   const targetAccuracy = 85;
   const totalSamples = currentPeriod.totalSamples;
