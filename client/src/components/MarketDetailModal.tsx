@@ -27,9 +27,17 @@ interface MarketDetailModalProps {
   market: MarketData | null;
   isOpen: boolean;
   onClose: () => void;
+  period?: string; // 'jan2026' | 'feb2026'
+  calibrationData?: {
+    weeks: string[];
+    preCal: (number | null)[];
+    postCal: (number | null)[];
+    totalOverturns: number;
+    avgPostCal: number;
+  } | null;
 }
 
-export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModalProps) {
+export function MarketDetailModal({ market, isOpen, onClose, period, calibrationData }: MarketDetailModalProps) {
   if (!market) return null;
 
   const getStatusBadge = (accuracy: number) => {
@@ -63,7 +71,7 @@ export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModal
             <div>
               <DialogTitle className="text-2xl font-bold">{market.market}</DialogTitle>
               <DialogDescription className="mt-1">
-                Detailed performance analysis for January 2026
+                Detailed performance analysis for {period === 'feb2026' ? 'February 2026' : 'January 2026'}
               </DialogDescription>
             </div>
             <Badge variant={status.variant} className={`${status.color} text-white`}>
@@ -71,6 +79,80 @@ export function MarketDetailModal({ market, isOpen, onClose }: MarketDetailModal
             </Badge>
           </div>
         </DialogHeader>
+
+        {/* Pre-Cal vs Post-Cal Calibration Chart — February only */}
+        {period === 'feb2026' && calibrationData && (
+          <Card className="mt-4 border-blue-200">
+            <CardHeader className="pb-2">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-base">Pre-Cal vs Post-Cal Accuracy Trend</CardTitle>
+                  <CardDescription className="text-xs mt-0.5">
+                    Weekly calibration uplift from dispute resolutions. Post-Cal = Pre-Cal + Overturned errors (Audit Errors resolved in MSP's favour).
+                  </CardDescription>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-muted-foreground">Avg Post-Cal</div>
+                  <div className="text-xl font-bold text-blue-600">{calibrationData.avgPostCal.toFixed(2)}%</div>
+                  <div className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">
+                    ↑ {calibrationData.totalOverturns} overturns
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={160}>
+                <LineChart data={calibrationData.weeks.map((w, i) => ({
+                  week: w,
+                  preCal: calibrationData.preCal[i],
+                  postCal: calibrationData.postCal[i],
+                }))}>
+                  <XAxis dataKey="week" stroke="oklch(0.552 0.016 285.938)" fontSize={11} />
+                  <YAxis domain={[80, 100]} stroke="oklch(0.552 0.016 285.938)" fontSize={11} tickFormatter={(v) => `${v}%`} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '8px', fontSize: 12 }}
+                    formatter={(value: number, name: string) => [`${value?.toFixed(2)}%`, name === 'preCal' ? 'Pre-Cal' : 'Post-Cal']}
+                  />
+                  <ReferenceLine y={85} stroke="#ef4444" strokeDasharray="4 4" label={{ value: '85%', position: 'right', fontSize: 10, fill: '#ef4444' }} />
+                  <Line type="monotone" dataKey="preCal" stroke="#3b82f6" strokeWidth={2} dot={{ fill: '#3b82f6', r: 4 }} name="preCal" connectNulls={false} />
+                  <Line type="monotone" dataKey="postCal" stroke="#10b981" strokeWidth={2} strokeDasharray="5 3" dot={{ fill: '#10b981', r: 4 }} name="postCal" connectNulls={false} />
+                </LineChart>
+              </ResponsiveContainer>
+              {/* Legend */}
+              <div className="flex items-center gap-6 mt-2 justify-center text-xs">
+                <div className="flex items-center gap-1.5"><span className="w-4 h-0.5 bg-blue-500 inline-block"></span><span>Pre-Cal</span></div>
+                <div className="flex items-center gap-1.5"><span className="w-4 h-0.5 bg-emerald-500 inline-block border-dashed border-t-2 border-emerald-500"></span><span>Post-Cal</span></div>
+              </div>
+              {/* Weekly breakdown */}
+              <div className="grid grid-cols-4 gap-2 mt-3">
+                {calibrationData.weeks.map((w, i) => {
+                  const pre = calibrationData.preCal[i];
+                  const post = calibrationData.postCal[i];
+                  const uplift = (pre !== null && post !== null) ? post - pre : null;
+                  return (
+                    <div key={w} className="text-center p-2 bg-muted rounded">
+                      <div className="text-xs text-muted-foreground mb-1">{w}</div>
+                      {pre !== null ? (
+                        <>
+                          <div className="text-sm font-medium text-blue-600">{pre.toFixed(2)}%</div>
+                          <div className="text-sm font-bold text-emerald-600">{post?.toFixed(2)}%</div>
+                          {uplift !== null && uplift > 0 && (
+                            <div className="text-xs text-amber-600 font-medium">+{uplift.toFixed(2)}pp</div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="text-xs text-muted-foreground italic">N/A</div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="text-xs text-muted-foreground mt-3 italic">
+                Note: Calibration uplift shown is team-level. Market-level dispute breakdown requires full SQL export from dim_qer_audit_disputes_sheet.
+              </p>
+            </CardContent>
+          </Card>
+        )}
 
         {/* 4-Week Trend Sparkline */}
         {market.weekly_trend && market.weekly_trend.some(v => v !== null) && (() => {

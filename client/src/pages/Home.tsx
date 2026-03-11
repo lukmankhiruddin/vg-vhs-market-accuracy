@@ -596,6 +596,14 @@ export default function Home() {
         market={selectedMarket}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        period={selectedPeriod}
+        calibrationData={selectedPeriod === 'feb2026' ? {
+          weeks: ['5 Feb', '12 Feb', '19 Feb', '26 Feb'],
+          preCal: [85.59, 86.30, 86.68, 86.32],
+          postCal: [85.59, 87.20, 88.58, 91.58],
+          totalOverturns: 53,
+          avgPostCal: 88.24,
+        } : null}
       />
     </div>
   );
