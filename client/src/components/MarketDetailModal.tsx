@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, CheckCircle2, TrendingDown, Users } from "lucide-react";
+import { AlertTriangle, CheckCircle2, TrendingDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { marketInsights } from "@/data/marketInsights";
@@ -85,12 +85,7 @@ export function MarketDetailModal({ market, isOpen, onClose, period, calibration
           <Card className="mt-4 border-blue-200">
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="text-base">Pre-Cal vs Post-Cal Accuracy Trend</CardTitle>
-                  <CardDescription className="text-xs mt-0.5">
-                    Weekly calibration uplift from dispute resolutions. Post-Cal = Pre-Cal + Overturned errors (Audit Errors resolved in MSP's favour).
-                  </CardDescription>
-                </div>
+                <CardTitle className="text-base">Pre-Cal vs Post-Cal Accuracy Trend</CardTitle>
                 <div className="text-right">
                   <div className="text-xs text-muted-foreground">Avg Post-Cal</div>
                   <div className="text-xl font-bold text-blue-600">{calibrationData.avgPostCal.toFixed(2)}%</div>
@@ -147,71 +142,9 @@ export function MarketDetailModal({ market, isOpen, onClose, period, calibration
                   );
                 })}
               </div>
-              <p className="text-xs text-muted-foreground mt-3 italic">
-                Note: Calibration uplift shown is team-level. Market-level dispute breakdown requires full SQL export from dim_qer_audit_disputes_sheet.
-              </p>
             </CardContent>
           </Card>
         )}
-
-        {/* 4-Week Trend Sparkline */}
-        {market.weekly_trend && market.weekly_trend.some(v => v !== null) && (() => {
-          const validTrend = market.weekly_trend!;
-          const validValues = validTrend.filter(v => v !== null) as number[];
-          const firstVal = validValues[0];
-          const lastVal = validValues[validValues.length - 1];
-          const chartData = validTrend.map((v, i) => ({ week: `W${i+1}`, accuracy: v }));
-          return (
-          <Card className="mt-4">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base">4-Week Performance Trend</CardTitle>
-              <CardDescription>
-                Weekly accuracy progression (Post-Cal) • {lastVal > firstVal ? '📈 Improving' : lastVal < firstVal ? '📉 Declining' : '➡️ Stable'}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={120}>
-                <LineChart data={chartData}>
-                  <XAxis dataKey="week" stroke="oklch(0.552 0.016 285.938)" fontSize={12} />
-                  <YAxis domain={[60, 100]} stroke="oklch(0.552 0.016 285.938)" fontSize={12} />
-                  <Tooltip 
-                    contentStyle={{ 
-                      backgroundColor: 'oklch(1 0 0)', 
-                      border: '1px solid oklch(0.92 0.004 286.32)',
-                      borderRadius: '8px'
-                    }}
-                    formatter={(value: number) => [`${value.toFixed(2)}%`, 'Accuracy']}
-                  />
-                  <ReferenceLine y={85} stroke="oklch(0.65 0.24 142)" strokeDasharray="3 3" label={{ value: 'Target 85%', position: 'right', fontSize: 11 }} />
-                  <Line 
-                    type="monotone" 
-                    dataKey="accuracy" 
-                    stroke="oklch(0.623 0.214 259.815)" 
-                    strokeWidth={3}
-                    dot={{ fill: 'oklch(0.623 0.214 259.815)', r: 5 }}
-                    activeDot={{ r: 7 }}
-                    connectNulls={false}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-              <div className="grid grid-cols-4 gap-2 mt-4">
-                {validTrend.map((acc, idx) => (
-                  <div key={idx} className="text-center p-2 bg-muted rounded">
-                    <div className="text-xs text-muted-foreground mb-1">Week {idx + 1}</div>
-                    {acc !== null ? (
-                      <div className={`text-lg font-bold ${ acc >= 85 ? 'text-chart-3' : acc >= 80 ? 'text-chart-2' : 'text-chart-1'}`}>
-                        {acc.toFixed(1)}%
-                      </div>
-                    ) : (
-                      <div className="text-sm text-muted-foreground italic">N/A</div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-          );
-        })()}
 
         <Tabs defaultValue="overview" className="mt-6">
           <TabsList className="grid w-full grid-cols-3">
